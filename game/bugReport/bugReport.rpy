@@ -167,7 +167,7 @@ init python:
     ## you have a compiled file. These lines should always be commented out in a released game as the 'bugReportSMTP.py' file should
     ## only exist during development.
     import py_compile
-    py_compile.compile(os.path.join(f"{config.gamedir}", "bugReportSMTP.py"))
+    py_compile.compile(os.path.join(config.gamedir, "bugReport", "bugReportSMTP.py"))
     
     ## add the path of this plugin to the sys path to allow us to import the compiled bugReportSMTP script
     sys.path.append(os.path.join(config.gamedir, "bugReport"))
