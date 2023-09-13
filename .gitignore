@@ -119,10 +119,14 @@ CubismSdkForNative-4-*.zip
 
 # Created files.
 /screenshot*
+android.json
 .android.json
 
 # Old files.
 /0old
+
+# VS code folder
+/.vscode
 
 # Works in progress, throwaway scripts, etc.
 /scratch
