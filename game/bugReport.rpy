@@ -9,7 +9,7 @@ default bugReport_screenshotPath = None
 define bugReport_categories = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
 
 ## this creates the button that you click on to open the bug report overlay
-screen bugReport_button:
+screen bugReport_button():
 
     zorder 196
     
@@ -18,7 +18,7 @@ screen bugReport_button:
         action Function(OpenBugReportScreen) ## use this function to open the bug report screen if you want to create your own button
 
 ## creates the main bug report screen.
-screen bugReport_screen:
+screen bugReport_screen():
 
     zorder 197
 
@@ -30,53 +30,69 @@ screen bugReport_screen:
 
         background Solid("#000000cc")
 
-        text "Report an issue":
-            xalign 0.5
-            size 64
-
-        text "Please describe the issue:":
-            ypos 0.35
-        
-        frame:
-            ypos 0.4
-            xysize (1.0, 0.3)
+        if renpy.android:
             side "c r":
+                area(0, 0, config.screen_width, int(config.screen_height / 2))
 
-                viewport id "desc_input":
-                    mousewheel True
-                    input:
-                        xsize 1.0
-                        multiline True
-                        changed OnDescriptionChanged
+                viewport id "andorid_view":
+                    child_size(config.screen_width - 150, config.screen_height)
+                    draggable True
 
-                vbar value YScrollValue("desc_input") unscrollable "hide"
+                    use bugReport_screen_content
 
-        hbox:
-            align(0.5, 0.8)
-            spacing 100
+                vbar value YScrollValue("andorid_view")
 
-            button:
-                frame:
-                    padding (10, 10)
-                    text "Close"
+        else:
+            use bugReport_screen_content
 
-                action [Hide("bugReport_screen"), Function(ToggleRollback, True), Function(ResetVariables, False)]
-                
-            button:
-                frame:
-                    padding (10, 10)
-                    text "Send"
-                    
-                action [Show("bugReport_sending_screen"), Function(ConstructAndSendEmail)]
-        
-        ## draw the drop down last to make it draw on top
-        text "To report an issue you must select a category below and describe the issuse.\nWhen sending your report, a screenshot, some diagnostics data and whatever you enter here will be sent. This requires a connection to the internet.":
-            ypos 0.1
+screen bugReport_screen_content():
+    text "Report an issue":
+        xalign 0.5
+        size 64
 
-        hbox:
-            ypos 0.25
-            text "Please select a category: "
-            use bugReport_dropdown_menu(500, 300, 0, bugReport_categories, "bugReport_category")
+    text "Please describe the issue:":
+        ypos 0.35
+
+    frame:
+        ypos 0.4
+        xysize (1.0, 0.3)
+        side "c r":
+
+            viewport id "desc_input":
+                mousewheel True
+                input:
+                    xsize 1.0
+                    multiline True
+                    changed OnDescriptionChanged
+
+            vbar value YScrollValue("desc_input") unscrollable "hide"
+
+    hbox:
+        align(0.5, 0.8)
+        spacing 100
+
+        button:
+            frame:
+                padding (10, 10)
+                text "Close"
+
+            action [Hide("bugReport_screen"), Function(ToggleRollback, True), Function(ResetVariables, False)]
+
+        button:
+            frame:
+                padding (10, 10)
+                text "Send"
+
+            action [Show("bugReport_sending_screen"), Function(ConstructAndSendEmail)]
+
+    ## draw the drop down last to make it draw on top
+    text "To report an issue you must select a category below and describe the issuse.\nWhen sending your report, a screenshot, some diagnostics data and whatever you enter here will be sent. This requires a connection to the internet.":
+        ypos 0.1
+
+    hbox:
+        ypos 0.25
+        text "Please select a category: "
+        use bugReport_dropdown_menu(500, 300, 0, bugReport_categories, "bugReport_category")
 
 ## creates a dropdown menu
 screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
@@ -122,7 +138,7 @@ screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
                         ysize height
 
 ## creates the overlay that pops up when the bug report is being sent. Also prevents the user from spamming the send button.
-screen bugReport_sending_screen:
+screen bugReport_sending_screen():
     
     zorder 199
 
