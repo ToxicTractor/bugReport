@@ -3,9 +3,9 @@ default bugReport_category = None
 default bugReport_originalRollbackSetting = None
 default bugReport_sentSuccessfully = None
 default bugReport_errorMessage = None
+default bugReport_screenshotPath = None
 
 define bugReport_categories = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
-define bugReport_screenshotPath = config.gamedir + "\\bugReport\\screenshot1.png"
 
 ## this creates the button that you click on to open the bug report overlay
 screen bugReport_button:
@@ -196,29 +196,27 @@ init python:
         store.bugReport_originalRollbackSetting = None
         store.bugReport_category = None
         store.bugReport_description = None
-
-        if os.path.exists(bugReport_screenshotPath):
-            os.remove(bugReport_screenshotPath)
+        store.bugReport_screenshotPath = None
     
     def TakeBugReportScreenshot():
 
-        ## saves the original screenshot pattern so we can reset the patter when we are done with it
-        oldPattern = config.screenshot_pattern
-
-        config.screenshot_pattern = os.path.join(config.gamedir, "bugreport", "screenshot%s.png")
+        ## store the original screenshot callback
+        oldScreenshotCallback = config.screenshot_callback
         
-        screenshotPath = config.screenshot_pattern % 1
+        ## set the screenshot callback to our callback method
+        config.screenshot_callback = OnScreenshotTaken
 
-        ## removes any old bug related screenshots before taking a new one
-        if os.path.exists(screenshotPath):
-            os.remove(screenshotPath)
-
-        ## takes a screenshot
+        ## take a screenshot
         Screenshot()()
 
-        ## reset to the old pattern
-        config.screenshot_pattern = oldPattern
-    
+        ## restore the screenshot callback back to the original
+        config.screenshot_callback = oldScreenshotCallback
+
+    def OnScreenshotTaken(path):
+        store.bugReport_screenshotPath = path
+
+        print(store.bugReport_screenshotPath)
+
     def ConstructAndSendEmail():
 
         ## create the mail object
