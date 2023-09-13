@@ -5,103 +5,24 @@ default bugReport_sentSuccessfully = None
 default bugReport_errorMessage = None
 default bugReport_screenshotPath = None
 
+## these are the categories displayed in the dropdown menu
 define bugReport_categories = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
 
 ## this creates the button that you click on to open the bug report overlay
 screen bugReport_button:
 
+    zorder 999
+    
     textbutton "REPORT BUG":
         align(1.0, 1.0)
-        action [SetVariable("bugReport_originalRollbackSetting", config.rollback_enabled), Function(TakeBugReportScreenshot), Function(ToggleRollback, False), Show("bugReport_screen")]
-
-## creates a dropdown menu
-screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
-
-    zorder 2
-    default isOpen = False
-    default currentValueIndex = valueIndex
-
-    vbox:
-
-        button:
-            padding(0, 0)
-            frame:
-                xysize (width, 50)
-                xfill True yfill True
-                text values[currentValueIndex]
-
-            action SetLocalVariable("isOpen", True)
-        
-        if isOpen:
-            dismiss action SetLocalVariable("isOpen", False)
-    
-            $ height = min(50 * len(values) + 5, maxHeight)
-            frame:
-                xsize width
-
-                side "c r":
-                    xfill True
-
-                    viewport id "options":
-                        ysize height
-                        mousewheel True
-
-                        has vbox
-
-                        for i in range(len(values)):
-                        
-                            textbutton values[i]:
-                                action [SetVariable(result, values[i]), SetLocalVariable("currentValueIndex", i), SetLocalVariable("isOpen", False)]
-                    
-                    vbar value YScrollValue("options") unscrollable "hide":
-                        ysize height
-
-## creates the overlay that pops up when the bug report is being sent. Also prevents the user from spamming the send button.
-screen bugReport_sending_screen:
-    zorder 5
-    modal True
-    frame:
-        xysize(1.0, 1.0)
-        background Solid("#000000cc")
-
-        frame:
-            xysize(0.4, 0.4)
-            align(0.5, 0.5)
-
-            has vbox
-            align(0.5, 0.5)
-            spacing 100
-
-            if bugReport_sentSuccessfully is None:
-                text "Sending bug report. Please wait..."
-
-            elif bugReport_sentSuccessfully:
-
-                text "Bug report sent. Thank you!":
-                    yalign 0.5
-
-                button:
-                    xalign 0.5
-                    frame:
-                        padding(10,10)
-                        text "Close"
-                    action [Hide("bugReport_sending_screen"), Hide("bugReport_screen"), Function(ToggleRollback, True), Function(ResetVariables, False)]
-            else:
-                text "[bugReport_errorMessage]":
-                    text_align 0.5
-
-                button:
-                    xalign 0.5
-                    frame:
-                        padding(10,10)
-                        text "Back"
-                    action [Hide("bugReport_sending_screen"), Function(ResetVariables, True)]
+        action Function(OpenBugReportScreen) ## use this function to open the bug report screen if you want to create your own button
 
 ## creates the main bug report screen.
 screen bugReport_screen:
 
+    zorder 1000
+
     modal True
-    zorder 3
 
     frame:
         xysize(1.0, 1.0)
@@ -157,7 +78,97 @@ screen bugReport_screen:
             text "Please select a category: "
             use bugReport_dropdown_menu(500, 300, 0, bugReport_categories, "bugReport_category")
 
+## creates a dropdown menu
+screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
+
+    zorder 1001
+
+    default isOpen = False
+    default currentValueIndex = valueIndex
+
+    vbox:
+
+        button:
+            padding(0, 0)
+            frame:
+                xysize (width, 50)
+                xfill True yfill True
+                text values[currentValueIndex]
+
+            action SetLocalVariable("isOpen", True)
+        
+        if isOpen:
+            dismiss action SetLocalVariable("isOpen", False)
+    
+            $ height = min(50 * len(values) + 5, maxHeight)
+            frame:
+                xsize width
+
+                side "c r":
+                    xfill True
+
+                    viewport id "options":
+                        ysize height
+                        mousewheel True
+
+                        has vbox
+
+                        for i in range(len(values)):
+                        
+                            textbutton values[i]:
+                                action [SetVariable(result, values[i]), SetLocalVariable("currentValueIndex", i), SetLocalVariable("isOpen", False)]
+                    
+                    vbar value YScrollValue("options") unscrollable "hide":
+                        ysize height
+
+## creates the overlay that pops up when the bug report is being sent. Also prevents the user from spamming the send button.
+screen bugReport_sending_screen:
+    
+    zorder 1002
+
+    modal True
+
+    frame:
+        xysize(1.0, 1.0)
+        background Solid("#000000cc")
+
+        frame:
+            xysize(0.4, 0.4)
+            align(0.5, 0.5)
+
+            has vbox
+            align(0.5, 0.5)
+            spacing 100
+
+            if bugReport_sentSuccessfully is None:
+                text "Sending bug report. Please wait..."
+
+            elif bugReport_sentSuccessfully:
+
+                text "Bug report sent. Thank you!":
+                    yalign 0.5
+
+                button:
+                    xalign 0.5
+                    frame:
+                        padding(10,10)
+                        text "Close"
+                    action [Hide("bugReport_sending_screen"), Hide("bugReport_screen"), Function(ToggleRollback, True), Function(ResetVariables, False)]
+            else:
+                text "[bugReport_errorMessage]":
+                    text_align 0.5
+
+                button:
+                    xalign 0.5
+                    frame:
+                        padding(10,10)
+                        text "Back"
+                    action [Hide("bugReport_sending_screen"), Function(ResetVariables, True)]
+
 init python:
+    ## defines the path to the plugin
+    BUGREPORT_DIR = os.path.join(config.gamedir, "bugReport")
+
     import os, sys
     from email.mime.text import MIMEText
     from email.mime.image import MIMEImage
@@ -167,12 +178,24 @@ init python:
     ## you have a compiled file. These lines should always be commented out in a released game as the 'bugReportSMTP.py' file should
     ## only exist during development.
     import py_compile
-    py_compile.compile(os.path.join(config.gamedir, "bugReport", "bugReportSMTP.py"))
-    
+    py_compile.compile(os.path.join(BUGREPORT_DIR, "bugReportSMTP.py"), os.path.join(BUGREPORT_DIR, "bugReportSMTP.pyc"))
+
     ## add the path of this plugin to the sys path to allow us to import the compiled bugReportSMTP script
-    sys.path.append(os.path.join(config.gamedir, "bugReport"))
+    sys.path.append(BUGREPORT_DIR)
 
     from bugReportSMTP import AttemptSend
+
+    def OpenBugReportScreen():
+        
+        ## disable rollback while the bug report screen is open
+        store.bugReport_originalRollbackSetting = config.rollback_enabled
+        ToggleRollback(False)
+
+        ## Take a screen shot
+        TakeBugReportScreenshot()
+
+        ## show the bug report screen
+        renpy.show_screen("bugReport_screen")
 
     def ToggleRollback(value):
 
