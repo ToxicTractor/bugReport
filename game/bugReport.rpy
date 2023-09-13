@@ -11,7 +11,7 @@ define bugReport_categories = ["Spelling/Grammar/Text", "Critical/Progress Block
 ## this creates the button that you click on to open the bug report overlay
 screen bugReport_button:
 
-    zorder 999
+    zorder 196
     
     textbutton "REPORT BUG":
         align(1.0, 1.0)
@@ -20,7 +20,7 @@ screen bugReport_button:
 ## creates the main bug report screen.
 screen bugReport_screen:
 
-    zorder 1000
+    zorder 197
 
     modal True
 
@@ -81,7 +81,7 @@ screen bugReport_screen:
 ## creates a dropdown menu
 screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
 
-    zorder 1001
+    zorder 198
 
     default isOpen = False
     default currentValueIndex = valueIndex
@@ -124,7 +124,7 @@ screen bugReport_dropdown_menu(width, maxHeight, valueIndex, values, result):
 ## creates the overlay that pops up when the bug report is being sent. Also prevents the user from spamming the send button.
 screen bugReport_sending_screen:
     
-    zorder 1002
+    zorder 199
 
     modal True
 
@@ -166,9 +166,6 @@ screen bugReport_sending_screen:
                     action [Hide("bugReport_sending_screen"), Function(ResetVariables, True)]
 
 init python:
-    ## defines the path to the plugin
-    BUGREPORT_DIR = os.path.join(config.gamedir, "bugReport")
-
     import os, sys
     from email.mime.text import MIMEText
     from email.mime.image import MIMEImage
@@ -178,10 +175,10 @@ init python:
     ## you have a compiled file. These lines should always be commented out in a released game as the 'bugReportSMTP.py' file should
     ## only exist during development.
     import py_compile
-    py_compile.compile(os.path.join(BUGREPORT_DIR, "bugReportSMTP.py"), os.path.join(BUGREPORT_DIR, "bugReportSMTP.pyc"))
+    py_compile.compile(os.path.join(config.gamedir, "bugReportSMTP.py"), os.path.join(config.gamedir, "bugReportSMTP.pyc"))
 
     ## add the path of this plugin to the sys path to allow us to import the compiled bugReportSMTP script
-    sys.path.append(BUGREPORT_DIR)
+    sys.path.append(config.gamedir)
 
     from bugReportSMTP import AttemptSend
 
