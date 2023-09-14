@@ -182,7 +182,7 @@ screen bugReport_sending_screen():
                     action [Hide("bugReport_sending_screen"), Function(ResetVariables, True)]
 
 init python:
-    import os, sys
+    import os, sys, platform
     from email.mime.text import MIMEText
     from email.mime.image import MIMEImage
     from email.mime.multipart import MIMEMultipart
@@ -262,13 +262,12 @@ init python:
         ## construct body of the mail
         body = f"Game: {config.name} - {config.version}\n"
 
-        if renpy.windows:
-            body += "Platform: Windows\n\n"
-        elif renpy.macintosh:
-            body += "Platform: macOS\n\n"
-        elif renpy.android:
-            body += "Platform: Android\n\n"
+        body += f"{platform.platform}\n"
         
+        fileAndLine = renpy.get_filename_line()
+
+        body += f"File: '{fileAndLine[0]}' - Line: {fileAndLine[1]}"
+
         description = None
         if store.bugReport_description is None or store.bugReport_description == "":
             description = "NO DESCRIPTION GIVEN"
@@ -276,10 +275,6 @@ init python:
             description = store.bugReport_description
 
         body += f"{description}\n\n"
-
-        fileAndLine = renpy.get_filename_line()
-
-        body += f"File: {fileAndLine[0]} | Line: {fileAndLine[1]}"
 
         mail.attach(MIMEText(body))
         
