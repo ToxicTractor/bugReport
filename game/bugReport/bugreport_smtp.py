@@ -1,7 +1,6 @@
-#############################################################################################################
-# This file is not supposed to be in any releases of a game. It contains the app password for the senders 
-# email and should therefore only include the compiled version of this script.
-############################################################################################################# 
+## this file is part of Ren'Py plug-in "bugReport" by ToxicTractor
+## the project can be found here on GitHub:
+## https://github.com/ToxicTractor/bugReport/tree/main
 
 SENDER = "sender@gmail.com"
 PASSWORD = "app-password"

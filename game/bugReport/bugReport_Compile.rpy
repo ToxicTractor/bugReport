@@ -1,3 +1,7 @@
+## this file is part of Ren'Py plug-in "bugReport" by ToxicTractor
+## the project can be found here on GitHub:
+## https://github.com/ToxicTractor/bugReport/tree/main
+
 ## this file contains all the code needed for compiling the various files.
 init -1 python:
     import os, sys, platform

@@ -1,3 +1,7 @@
+## this file is part of Ren'Py plug-in "bugReport" by ToxicTractor
+## the project can be found here on GitHub:
+## https://github.com/ToxicTractor/bugReport/tree/main
+
 default bugReport_description = None
 default bugReport_category = None
 default bugReport_originalRollbackSetting = None
