@@ -182,21 +182,14 @@ screen bugReport_sending_screen():
                     action [Hide("bugReport_sending_screen"), Function(ResetVariables, True)]
 
 init python:
-    import os, sys, platform
+    import os, sys, platform, bugreport_smtp
     from email.mime.text import MIMEText
     from email.mime.image import MIMEImage
     from email.mime.multipart import MIMEMultipart
 
-    ## Compiles the 'bugReportSMTP.py' script so we can use the compiled script in our game. You can comment out these 2 lines when
-    ## you have a compiled file. These lines should always be commented out in a released game as the 'bugReportSMTP.py' file should
-    ## only exist during development.
-    import py_compile
-    py_compile.compile(os.path.join(config.gamedir, "bugReportSMTP.py"), os.path.join(config.gamedir, "bugReportSMTP.pyc"))
-
-    ## add the path of this plugin to the sys path to allow us to import the compiled bugReportSMTP script
-    sys.path.append(config.gamedir)
-
-    from bugReportSMTP import AttemptSend
+    ## exclude the '.py' files from builds of the game
+    build.classify("**bugreport_smtp.py", None)
+    build.classify("**smtplib.py", None)
 
     def OpenBugReportScreen():
         
@@ -289,11 +282,11 @@ init python:
             mail.attach(image)
 
         ## attempt to send the mail and provide a callback function for when the result of the attempt is ready
-        AttemptSend(mail, OnAttemptCompleted)
+        bugreport_smtp.AttemptSend(mail, OnAttemptCompleted)
     
     ## callback function for when an attempt to send a mail is done
     def OnAttemptCompleted(success, errorMessage):
-        if success:
+        if not success:
             store.bugReport_errorMessage = errorMessage
 
         store.bugReport_sentSuccessfully = success

@@ -17,7 +17,9 @@ def AttemptSend(mail, onComplete):
     t.start()
 
 def ThreadedSendSMTP(mail, onComplete):
-    import smtplib, ssl
+    import ssl
+    from smtplib import SMTPConnectError
+    from smtplib import SMTP_SSL
 
     ## set up needed variables
     success = False
@@ -33,10 +35,7 @@ def ThreadedSendSMTP(mail, onComplete):
         with smtplib.SMTP_SSL(HOST, PORT, context=context) as client:
             client.login(SENDER, PASSWORD)
             client.sendmail(SENDER, RECEIVER, mail.as_string())
-    ## if we cannot connect we give one error message
-    except SMTPConnectError:
-        errorMessage = "Unable to connect to the server. Please check your internet connection!"
-    ## if something went wrong we give another error message
+    ## if something went wrong we set the error message
     except:
         errorMessage = "An error occured. Bug report was not sent."
     ## if nothing went wrong we set success to true
