@@ -23,4 +23,6 @@ Before we begin we need to acquire an app-password this tool can use to login to
 1. Unpack the 'game' folder from the .zip archive into the Ren'Py project.
 2. Open up the 'bugreport_smtp.py' python file and fill out the fields called SENDER, PASSWORD and RECEIVER with your emails and app-password.
 3. Next you want to compile this python file to a .pyc file. This should be automatically done when you run your game.
-4. You are done! You should now be able to send bug reports from within your game!
+4. To display a bug report button, you can show the screen called "bugReport_buttonScreen". If you just want to open up the bug report overlay you can call the python function called "OpenBugReportScreen"
+5. You are done! You should now be able to send bug reports from within your game!
+
