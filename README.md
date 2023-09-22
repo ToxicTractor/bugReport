@@ -1,6 +1,6 @@
 # bugReport - A Ren'Py bug reporting tool
 
-This plug-in adds a bug report screen and the ability to send bug report emails from directly within the game. The emails the plug-in sends contain the following by default:
+This plug-in adds a bug report screen and the ability to send bug report emails from directly within the game. This all happens without the end-user ever setting anything up or loging in to anything. Everything happens within the application at the press of a button. The emails the plug-in sends contain the following by default:
 - The name and version of the game.
 - The platform from which the bug report was sent.
 - A screenshot.
