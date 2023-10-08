@@ -26,3 +26,8 @@ Before we begin we need to acquire an app-password this tool can use to login to
 4. To display a bug report button, you can show the screen called "bugReport_buttonScreen". If you just want to open up the bug report overlay you can call the python function called "OpenBugReportScreen"
 5. You are done! You should now be able to send bug reports from within your game!
 
+### Usage
+To use the built in button for opening the overlay put this line (without the quotes) at the start of your game (preferably in the start label):
+"show screen bugReport_buttonScreen"
+
+If you would rather show the overlay in some other way you can use the python function "OpenBugReportScreen()" to open the overlay.
