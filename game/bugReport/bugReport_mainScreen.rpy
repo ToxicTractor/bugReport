@@ -110,7 +110,3 @@ init python:
     def OnDescriptionChanged(input):
 
         store.bugReport_description = input
-
-    def OnContactInfoChanged(input):
-        
-        store.bugReport_contactInfo = input
