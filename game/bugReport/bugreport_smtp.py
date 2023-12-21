@@ -17,7 +17,6 @@ def AttemptSend(mail, onComplete):
 
 def ThreadedSendSMTP(mail, onComplete):
     import ssl
-    from smtplib import SMTPConnectError
     from smtplib import SMTP_SSL
 
     ## set up needed variables
@@ -31,7 +30,7 @@ def ThreadedSendSMTP(mail, onComplete):
     ## try to connect to the smpt server
     try:
         context = ssl._create_unverified_context()
-        with smtplib.SMTP_SSL(HOST, PORT, context=context) as client:
+        with SMTP_SSL(HOST, PORT, context=context) as client:
             client.login(SENDER, PASSWORD)
             client.sendmail(SENDER, RECEIVER, mail.as_string())
     ## if something went wrong we set the error message
