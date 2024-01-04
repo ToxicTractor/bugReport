@@ -33,16 +33,16 @@ screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size
 
                 text values[currentValueIndex]:
                     size text_size
-
+                
                 fixed:
                     align (1.0, 0.5)
                     xysize (text_size, text_size)
 
                     if isHovered:
-                        add "bugReport dropdown hover":
+                        add "bugreport_dropdown" at t_bugReport_tint(BUGREPORT_PRIMARY_HOVER_COLOR):
                             xysize(1.0, 1.0)
                     else:
-                        add "bugReport dropdown idle":
+                        add "bugreport_dropdown" at t_bugReport_tint(BUGREPORT_PRIMARY_PANEL_COLOR):
                             xysize(1.0, 1.0)
 
             action CaptureFocus("options_dd")

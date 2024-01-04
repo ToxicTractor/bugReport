@@ -11,7 +11,8 @@ screen bugReport_buttonScreen():
     default showTooltip = False
     default isHovered = False
 
-    imagebutton auto "images/bugReport/bugReport_button_%s.webp":
+    imagebutton auto "bugreport_button_%s":
+
         align(1.0, 1.0)
 
         hovered SetLocalVariable('isHovered', True)
@@ -47,9 +48,10 @@ screen bugReport_buttonScreen():
 init python:
 
     def OpenBugReportScreen():
-        
+        global bugReport_originalRollbackSetting
+
         ## disable rollback while the bug report screen is open
-        store.bugReport_originalRollbackSetting = config.rollback_enabled
+        bugReport_originalRollbackSetting = config.rollback_enabled
         config.rollback_enabled = False
 
         ## Take a screen shot

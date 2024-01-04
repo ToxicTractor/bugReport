@@ -9,13 +9,15 @@ screen bugReport_mainScreen():
 
     modal True
 
+    key "game_menu" action NullAction()
+
     frame:
         xysize(1.0, 1.0)
         xpadding 50
 
         style_prefix "bugReport"
 
-        background "bugReport modalOverlay"
+        background "bugReport_modalOverlay"
 
         if renpy.android or renpy.ios:
             side "c r":
@@ -27,8 +29,7 @@ screen bugReport_mainScreen():
 
                     use bugReport_mainScreenContent
 
-                vbar value YScrollValue("andorid_view"):
-                    style "bugReport_vbar"
+                vbar value YScrollValue("andorid_view") style "bugReport_vbar"
 
         else:
             use bugReport_mainScreenContent
@@ -39,8 +40,12 @@ screen bugReport_mainScreen():
         align(1.0, 0.0)
         padding(10, 10)
 
-        imagebutton auto "images/bugReport/bugReport_exit_%s.webp":
-            action [Hide("bugReport_mainScreen"), SetVariable("config.rollback_enabled", True), Function(ResetVariables, False)]
+        imagebutton:
+
+            idle t_bugReport_exit_button(0.5)
+            hover t_bugReport_exit_button(1.0)
+
+            action [Hide("bugReport_mainScreen"), SetVariable("config.rollback_enabled", bugReport_originalRollbackSetting), Function(ResetVariables, False)]
 
 screen bugReport_mainScreenContent():
     
@@ -82,7 +87,7 @@ screen bugReport_mainScreenContent():
                 style_prefix "bugReport"
 
                 xysize (1.0, 0.6)
-                background Frame("bugReport frame grey", 11, 11)
+                background t_bugReport_frame(BUGREPORT_PRIMARY_PANEL_COLOR)
 
                 side "c r":
 
@@ -94,7 +99,7 @@ screen bugReport_mainScreenContent():
                             multiline True
                             changed OnDescriptionChanged
 
-                    vbar value YScrollValue("desc_input") unscrollable "hide"
+                    vbar value YScrollValue("desc_input") unscrollable "hide" style "bugReport_vbar"
 
             null height 50
 
@@ -102,7 +107,7 @@ screen bugReport_mainScreenContent():
                 background None
                 xfill True
 
-                use bugReport_onScreenButton("Close", align=(0.0, 0.0), actions=[Hide("bugReport_mainScreen"), SetVariable("config.rollback_enabled", True), Function(ResetVariables, False)])
+                use bugReport_onScreenButton("Close", align=(0.0, 0.0), actions=[Hide("bugReport_mainScreen"), SetVariable("config.rollback_enabled", bugReport_originalRollbackSetting), Function(ResetVariables, False)])
                 use bugReport_onScreenButton("Send", align=(1.0, 0.0), actions=[Show("bugReport_sendingModalScreen"), Function(ConstructAndSendEmail)])
         
 init python:

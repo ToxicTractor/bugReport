@@ -2,26 +2,21 @@
 ## the project can be found here on GitHub:
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
-image bugReport modalOverlay:
+image bugReport_modalOverlay:
     Solid("#000000cc")
 
-image bugReport frame white:
-    "images/bugReport/bugReport_frame_white.webp"
+image i_bugReport_idle_vbar_base:
+    "bugreport_vbar_base"
+    matrixcolor TintMatrix(BUGREPORT_SECONDARY_BAR_IDLE_COLOR)
 
-image bugReport frame grey:
-    "images/bugReport/bugReport_frame_grey.webp"
+image i_bugReport_hover_vbar_base:
+    "bugreport_vbar_base"
+    matrixcolor TintMatrix(BUGREPORT_SECONDARY_BAR_HOVER_COLOR)
 
-image bugReport dropdown idle:
-    "images/bugReport/bugReport_dropdown_idle.webp"
+image i_bugReport_idle_vbar:
+    "bugreport_vbar"
+    matrixcolor TintMatrix(BUGREPORT_PRIMARY_BAR_IDLE_COLOR)
 
-image bugReport dropdown hover:
-    "images/bugReport/bugReport_dropdown_hover.webp"
-
-image bugReport vbar white:
-    "images/bugReport/bugReport_vbar_white.webp"
-
-image bugReport vbar grey:
-    "images/bugReport/bugReport_vbar_grey.webp"
-
-image bugReport vbar base:
-    "images/bugReport/bugReport_vbar_base.webp"
+image i_bugReport_hover_vbar:
+    "bugreport_vbar"
+    matrixcolor TintMatrix(BUGREPORT_PRIMARY_BAR_HOVER_COLOR)
