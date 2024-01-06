@@ -39,10 +39,10 @@ screen br_usc_dropdown(values, align=(0.0, 0.5), xysize=None, text_size=24, star
                     xysize (text_size, text_size)
 
                     if isHovered:
-                        add "bugReport/images/bugReport_dropdown.webp" at br_t_tint(br_BUTTON_HOVER_COLOR):
+                        add "bugReport/images/dropdown.webp" at br_t_tint(br_BUTTON_HOVER_COLOR):
                             xysize(1.0, 1.0)
                     else:
-                        add "bugReport/images/bugReport_dropdown.webp" at br_t_tint(br_BUTTON_IDLE_COLOR):
+                        add "bugReport/images/dropdown.webp" at br_t_tint(br_BUTTON_IDLE_COLOR):
                             xysize(1.0, 1.0)
 
             action CaptureFocus("options_dd")

@@ -37,4 +37,24 @@ screen br_sc_main():
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
     use br_usc_button_exit(Function(br_Close), (0.99, 0.01 * scaleFactor))
+
+    ## get the current tooltip
+    $ tooltip = GetTooltip()
+
+    ## if the current tooltip is set and showTooltip is True, we show the tooltip
+    if tooltip:
+
+        nearrect:
+            ypos -5
+            focus "tooltip"
+            prefer_top True
+
+            frame:
+                xalign 0.5
+                xmaximum 0.4
+                padding(10, 5)
+                
+                style_prefix "br_st_tooltip"
+
+                text tooltip
     

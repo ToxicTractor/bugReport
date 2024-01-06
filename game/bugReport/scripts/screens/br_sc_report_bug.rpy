@@ -11,7 +11,7 @@ screen br_sc_report_bug():
     default showTooltip = False
     default isHovered = False
 
-    imagebutton auto "bugReport/images/bugReport_button_%s.webp":
+    imagebutton auto "bugReport/images/report_bug_%s.webp":
 
         align(1.0, 1.0)
 
@@ -20,7 +20,7 @@ screen br_sc_report_bug():
 
         action Function(br_Open)
 
-        tooltip "Report a bug."
+        tooltip "Report a bug"
     
     ## if the button is hovered, start the timer that will set 'showTooltip' to True
     if isHovered:

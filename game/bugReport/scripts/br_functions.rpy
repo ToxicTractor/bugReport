@@ -97,6 +97,13 @@ init python:
         br_description = input
 
 
+    ## callback function for when the contact info of the report changes
+    def br_OnContactInfoChanged(input):
+        global br_contactInfo
+
+        br_contactInfo = input
+
+
     ## takes a screenshot for the bug report
     def br_Screenshot():
 
@@ -147,7 +154,12 @@ init python:
         
         fileAndLine = renpy.get_filename_line()
 
-        body += f"File: '{fileAndLine[0]}' - Line: {fileAndLine[1]}"
+        body += f"File: '{fileAndLine[0]}' - Line: {fileAndLine[1]}\n"
+
+        if (br_contactInfo is None or br_contactInfo == ""):
+            body += "NO CONTACT INFO\n"
+        else:
+            body += br_contactInfo
 
         description = None
         if br_description is None or br_description == "":

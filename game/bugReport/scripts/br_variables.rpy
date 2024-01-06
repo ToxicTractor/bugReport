@@ -7,6 +7,7 @@
 ##---------------------------------------------------------------------
 default br_category = None
 default br_description = None
+default br_contactInfo = None
 default br_sentSuccessfully = None
 default br_errorMessage = None
 default br_screenshotPath = None

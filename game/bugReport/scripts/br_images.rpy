@@ -7,20 +7,32 @@ image br_i_modalOverlay:
 
 
 image br_i_idle_vbar_base:
-    "bugReport/images/bugReport_vbar_base.webp"
+    "bugReport/images/vbar_base.webp"
     matrixcolor TintMatrix(br_SECONDARY_BAR_IDLE_COLOR)
 
 
 image br_i_hover_vbar_base:
-    "bugReport/images/bugReport_vbar_base.webp"
+    "bugReport/images/vbar_base.webp"
     matrixcolor TintMatrix(br_SECONDARY_BAR_HOVER_COLOR)
 
 
 image br_i_idle_vbar:
-    "bugReport/images/bugReport_vbar.webp"
+    "bugReport/images/vbar.webp"
     matrixcolor TintMatrix(br_PRIMARY_BAR_IDLE_COLOR)
 
 
 image br_i_hover_vbar:
-    "bugReport/images/bugReport_vbar.webp"
+    "bugReport/images/vbar.webp"
     matrixcolor TintMatrix(br_PRIMARY_BAR_HOVER_COLOR)
+
+
+image br_i_info_idle:
+    "bugReport/images/info.webp"
+    matrixcolor TintMatrix(br_BUTTON_IDLE_COLOR)
+    zoom 0.75
+
+
+image br_i_info_hover:
+    "bugReport/images/info.webp"
+    matrixcolor TintMatrix(br_BUTTON_HOVER_COLOR)
+    zoom 0.75
