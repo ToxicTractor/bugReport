@@ -17,7 +17,7 @@ screen bugReport_mainScreen():
 
         style_prefix "bugReport"
 
-        background "bugReport_modalOverlay"
+        background "i_bugReport_modalOverlay"
 
         if renpy.android or renpy.ios:
             side "c r":

@@ -13,7 +13,7 @@ screen bugReport_sendingModalScreen():
 
     frame:
         xysize(1.0, 1.0)
-        background "bugReport_modalOverlay"
+        background "i_bugReport_modalOverlay"
 
         frame:
             xysize(0.4, 0.4)

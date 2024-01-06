@@ -6,9 +6,9 @@ transform t_bugReport_tint(color):
     matrixcolor TintMatrix(color)
 
 transform t_bugReport_exit_button(saturation):
-    "bugreport_exit"
+    "bugReport/images/bugReport_exit.webp"
     matrixcolor SaturationMatrix(saturation)
 
 transform t_bugReport_frame(color):
-    Frame("bugreport_frame", 11, 11)
+    Frame("bugReport/images/bugReport_frame.webp", 11, 11)
     matrixcolor TintMatrix(color)

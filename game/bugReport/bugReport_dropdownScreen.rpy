@@ -39,10 +39,10 @@ screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size
                     xysize (text_size, text_size)
 
                     if isHovered:
-                        add "bugreport_dropdown" at t_bugReport_tint(BUGREPORT_PRIMARY_HOVER_COLOR):
+                        add "bugReport/images/bugReport_dropdown.webp" at t_bugReport_tint(BUGREPORT_PRIMARY_HOVER_COLOR):
                             xysize(1.0, 1.0)
                     else:
-                        add "bugreport_dropdown" at t_bugReport_tint(BUGREPORT_PRIMARY_PANEL_COLOR):
+                        add "bugReport/images/bugReport_dropdown.webp" at t_bugReport_tint(BUGREPORT_PRIMARY_PANEL_COLOR):
                             xysize(1.0, 1.0)
 
             action CaptureFocus("options_dd")
@@ -63,8 +63,8 @@ screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size
                         has vbox
                         for i in range(len(values)):
                             use bugReport_dropDownOptionScreen(values[i], i, currentValueIndex, text_size, [SetVariable(outputVariableName, values[i]), SetLocalVariable("currentValueIndex", i), ClearFocus("options_dd")])
-                    vbar value YScrollValue("options") unscrollable "hide":
-                        style "bugReport_vbar"
+                    
+                    vbar value YScrollValue("options") unscrollable "hide" style "bugReport_vbar"
 
 screen bugReport_dropDownOptionScreen(name, i, selected, text_size, actions):
 

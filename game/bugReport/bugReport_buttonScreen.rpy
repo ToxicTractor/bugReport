@@ -11,7 +11,7 @@ screen bugReport_buttonScreen():
     default showTooltip = False
     default isHovered = False
 
-    imagebutton auto "bugreport_button_%s":
+    imagebutton auto "bugReport/images/bugReport_button_%s.webp":
 
         align(1.0, 1.0)
 
