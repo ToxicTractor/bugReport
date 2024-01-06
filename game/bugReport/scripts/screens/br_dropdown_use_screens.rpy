@@ -2,14 +2,14 @@
 ## the project can be found here on GitHub:
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
-screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size=24, startIndex=0, outputVariableName=None):
+screen br_usc_dropdown(values, align=(0.0, 0.5), xysize=None, text_size=24, startIndex=0, outputVariableName=None):
 
     zorder 198
 
     default currentValueIndex = startIndex
     default isHovered = False
 
-    style_prefix "bugReport_dropdown"
+    style_prefix "br_st_dropdown"
     
     frame:
         if xysize is not None:
@@ -39,10 +39,10 @@ screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size
                     xysize (text_size, text_size)
 
                     if isHovered:
-                        add "bugReport/images/bugReport_dropdown.webp" at t_bugReport_tint(BUGREPORT_PRIMARY_HOVER_COLOR):
+                        add "bugReport/images/bugReport_dropdown.webp" at br_t_tint(br_BUTTON_HOVER_COLOR):
                             xysize(1.0, 1.0)
                     else:
-                        add "bugReport/images/bugReport_dropdown.webp" at t_bugReport_tint(BUGREPORT_PRIMARY_PANEL_COLOR):
+                        add "bugReport/images/bugReport_dropdown.webp" at br_t_tint(br_BUTTON_IDLE_COLOR):
                             xysize(1.0, 1.0)
 
             action CaptureFocus("options_dd")
@@ -62,14 +62,15 @@ screen bugReport_dropdownScreen(values, align=(0.0, 0.5), xysize=None, text_size
                         mousewheel True
                         has vbox
                         for i in range(len(values)):
-                            use bugReport_dropDownOptionScreen(values[i], i, currentValueIndex, text_size, [SetVariable(outputVariableName, values[i]), SetLocalVariable("currentValueIndex", i), ClearFocus("options_dd")])
+                            use br_usc_dropDownOption(values[i], i, currentValueIndex, text_size, [SetVariable(outputVariableName, values[i]), SetLocalVariable("currentValueIndex", i), ClearFocus("options_dd")])
                     
-                    vbar value YScrollValue("options") unscrollable "hide" style "bugReport_vbar"
+                    vbar value YScrollValue("options") unscrollable "hide" style "br_st_vbar"
 
-screen bugReport_dropDownOptionScreen(name, i, selected, text_size, actions):
+
+screen br_usc_dropDownOption(name, i, selected, text_size, actions):
+    style_prefix "br_st_dropdownOption"
 
     button:
-        style_prefix "bugReport_dropdownOptions"
 
         action actions
 

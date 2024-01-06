@@ -10,15 +10,16 @@ init -1 python:
     ## installation directory for Ren'Py itself. The path might be different on other machines but it should look something like:
     ## "renpy install path"/lib/"python version"
     ## it compiles to this folder as this was the only way I could get RenPy to import the compiled '.pyc' files on android devices.
-    RENPY_PYTHON_DIR = os.path.join(sys.base_prefix, sys.platlibdir, f"python{sys.version_info.major}.{sys.version_info.minor}")
+    br_RENPY_PYTHON_DIR = os.path.join(sys.base_prefix, sys.platlibdir, f"python{sys.version_info.major}.{sys.version_info.minor}")
 
     ## path to the 'bugReport' folder
-    BUGREPORT_PACKAGE_DIR = os.path.join(config.gamedir, "bugReport")
-    SMTPLIB_PY = os.path.join(BUGREPORT_PACKAGE_DIR, "smtplib.py")
-    BUGREPORTSMTP_PY = os.path.join(BUGREPORT_PACKAGE_DIR, "bugreport_smtp.py")
+    br_BUGREPORT_PACKAGE_DIR = os.path.join(config.gamedir, "bugReport")
+    br_SMTPLIB_PY = os.path.join(br_BUGREPORT_PACKAGE_DIR, "scripts", "python", "smtplib.py")
+    br_BUGREPORTSMTP_PY = os.path.join(br_BUGREPORT_PACKAGE_DIR, "scripts", "python", "bugreport_smtp.py")
+
 
     ## compiles a file to a specified directory
-    def CompileFile(filePath, outputDir, noPycache=True):
+    def br_CompileFile(filePath, outputDir, noPycache=True):
         import py_compile
 
         fileName = os.path.splitext(os.path.basename(filePath))[0]
@@ -32,18 +33,20 @@ init -1 python:
 
         print(f"COMPILE FILE SUCCEEDED! The file '{filePath}' has been compiled to '{os.path.join(outputDir, fileName)}.pyc'.")
 
-    def CompileFiles():
+
+    def br_CompileFiles():
         ## if the 'bugreport_smtp.py' file exists (i.e. we are not in a build) we compile it
-        if os.path.exists(BUGREPORTSMTP_PY):
-            CompileFile(BUGREPORTSMTP_PY, RENPY_PYTHON_DIR)
+        if os.path.exists(br_BUGREPORTSMTP_PY):
+            br_CompileFile(br_BUGREPORTSMTP_PY, br_RENPY_PYTHON_DIR)
 
         ## if the smtplib file has already been compiled, just return as we dont need to do it again
-        if os.path.exists(os.path.join(RENPY_PYTHON_DIR, "smtplib.pyc")):
+        if os.path.exists(os.path.join(br_RENPY_PYTHON_DIR, "smtplib.pyc")):
             return
         
         ## if the 'smtplib.py' file exists (i.e. we are not in a build) we compile it
-        if os.path.exists(SMTPLIB_PY):
-            CompileFile(SMTPLIB_PY, RENPY_PYTHON_DIR)
+        if os.path.exists(br_SMTPLIB_PY):
+            br_CompileFile(br_SMTPLIB_PY, br_RENPY_PYTHON_DIR)
+    
     
     ## call the function to compile the files
-    CompileFiles()
+    br_CompileFiles()

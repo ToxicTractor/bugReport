@@ -3,7 +3,7 @@
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
 ## this creates the button that you click on to open the bug report overlay
-screen bugReport_buttonScreen():
+screen br_sc_report_bug():
 
     zorder 196
 
@@ -18,7 +18,7 @@ screen bugReport_buttonScreen():
         hovered SetLocalVariable('isHovered', True)
         unhovered [SetLocalVariable('isHovered', False), SetLocalVariable('showTooltip', False)]
 
-        action Function(OpenBugReportScreen)
+        action Function(br_Open)
 
         tooltip "Report a bug."
     
@@ -40,40 +40,7 @@ screen bugReport_buttonScreen():
             frame:
                 xalign 0.5
                 
-                style_prefix "bugReport_tooltip"
+                style_prefix "br_st_tooltip"
 
                 text tooltip
-
-## python functions used in the screens
-init python:
-
-    def OpenBugReportScreen():
-        global bugReport_originalRollbackSetting
-
-        ## disable rollback while the bug report screen is open
-        bugReport_originalRollbackSetting = config.rollback_enabled
-        config.rollback_enabled = False
-
-        ## Take a screen shot
-        TakeBugReportScreenshot()
-
-        ## show the bug report screen
-        renpy.show_screen("bugReport_mainScreen")
-
-    def TakeBugReportScreenshot():
-
-        ## store the original screenshot callback
-        oldScreenshotCallback = config.screenshot_callback
-        
-        ## set the screenshot callback to our callback method
-        config.screenshot_callback = OnScreenshotTaken
-
-        ## take a screenshot
-        Screenshot()()
-
-        ## restore the screenshot callback back to the original
-        config.screenshot_callback = oldScreenshotCallback
-
-    def OnScreenshotTaken(path):
-
-        store.bugReport_screenshotPath = path
+                
