@@ -13,7 +13,7 @@ screen br_sc_main():
 
     frame:
         xysize(1.0, 1.0)
-        xpadding 50
+        xpadding br_MAIN_SCREEN_PADDING
 
         style_prefix "br_st"
 
@@ -32,6 +32,7 @@ screen br_sc_main():
                 vbar value YScrollValue("andorid_view") style "br_st_vbar"
 
         else:
+            
             use br_usc_main_content
         
     ## exit button in the top right corner

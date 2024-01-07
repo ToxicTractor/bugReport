@@ -20,6 +20,9 @@ default br_originalInputEnter = None
 ## other
 ##---------------------------------------------------------------------
 define br_CATEGORIES = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
+define br_MAIN_SCREEN_PADDING = 50
+
+default br_category_index = 0
 
 
 ##---------------------------------------------------------------------
@@ -33,6 +36,7 @@ define br_BUTTON_HOVER_COLOR = "#ccc"
 
 define br_PRIMARY_TEXT_COLOR = "#000"
 define br_SECONDARY_TEXT_COLOR = "#444"
+define br_PRIMARY_TEXT_HOVER_COLOR = "#222"
 
 define br_PRIMARY_BAR_IDLE_COLOR = "#888"
 define br_SECONDARY_BAR_IDLE_COLOR = "#444"

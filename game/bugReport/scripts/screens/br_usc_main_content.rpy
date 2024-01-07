@@ -7,6 +7,9 @@ screen br_usc_main_content():
     default selectedTextArea = 0
     default hoveringTextArea = 0
 
+    $ dropdownSize = (400, 40)
+    $ dropdownID = "category_dropdown"
+
     fixed:
         xysize(1.0, 1.0)
         
@@ -77,15 +80,14 @@ screen br_usc_main_content():
             null height 40
 
             hbox:
-                ysize 40
+                ysize dropdownSize[1]
+
                 text "Please select a category: ":
                     yalign 0.5
-
-                $ dropdownSize = (500, 40)
+                
                 fixed:
                     xysize dropdownSize
-
-                    use br_usc_dropdown(br_CATEGORIES, xysize=dropdownSize, outputVariableName="br_category")
+                    use br_usc_dropdown("categories_dropdown", br_CATEGORIES, "br_category_index", pixelHeight=dropdownSize[1])
 
             null height 40
 
@@ -146,5 +148,5 @@ screen br_usc_main_content():
                 xalign 0.5
     
     if (selectedTextArea != 0):
-        dismiss action SetLocalVariable("selectedTextArea", False)
+        use br_usc_dismiss_button(SetLocalVariable("selectedTextArea", 0))
     
