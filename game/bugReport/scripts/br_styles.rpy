@@ -76,6 +76,7 @@ style br_st_button_frame:
 ## common styles
 ##---------------------------------------------------------------------
 style br_st_text:
+    yalign 0.5
     color "#fff"
     size 24
 

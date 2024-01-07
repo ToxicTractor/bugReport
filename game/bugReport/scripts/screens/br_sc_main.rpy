@@ -13,7 +13,7 @@ screen br_sc_main():
 
     frame:
         xysize(1.0, 1.0)
-        xpadding br_MAIN_SCREEN_PADDING
+        xpadding 50
 
         style_prefix "br_st"
 

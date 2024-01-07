@@ -3,26 +3,30 @@
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
 ##---------------------------------------------------------------------
-## report data
+## resetting variables
 ##---------------------------------------------------------------------
-default br_category = None
 default br_description = None
-default br_contactInfo = None
-default br_sentSuccessfully = None
-default br_errorMessage = None
-default br_screenshotPath = None
-default br_originalRollbackSetting = None
-default br_originalInputNextLine = None
-default br_originalInputEnter = None
+default br_sent_successfully = None
+default br_error_message = None
+default br_screenshot_path = None
+default br_original_rollback_setting = None
+default br_original_input_next_line = None
+default br_original_input_enter = None
 
 
 ##---------------------------------------------------------------------
-## other
+## non-resetting variables
+##---------------------------------------------------------------------
+default br_contactInfo = None
+default br_category_index = 0
+default br_contact_info_index = 0
+
+
+##---------------------------------------------------------------------
+## dropdown options
 ##---------------------------------------------------------------------
 define br_CATEGORIES = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
-define br_MAIN_SCREEN_PADDING = 50
-
-default br_category_index = 0
+define br_CONTACT_INFO_TYPES = ["Email", "Discord", "Other"]
 
 
 ##---------------------------------------------------------------------

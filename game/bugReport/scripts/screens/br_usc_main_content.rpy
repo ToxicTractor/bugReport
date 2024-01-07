@@ -7,15 +7,16 @@ screen br_usc_main_content():
     default selectedTextArea = 0
     default hoveringTextArea = 0
 
-    $ dropdownSize = (400, 40)
-    $ dropdownID = "category_dropdown"
+    $ CATEGORY_DD_SIZE = (400, 40)
+    $ CATEGORY_DD_ID = "category_dropdown"
+    $ CONTACT_INFO_DD_SIZE = (200, 40)
+    $ CONTACT_INFO_DD_ID = "contact_info_type_dropdown"
 
     fixed:
         xysize(1.0, 1.0)
         
         vbox:
             xfill True
-            order_reverse True
 
             text "Report a bug":
                 xalign 0.5
@@ -39,7 +40,7 @@ screen br_usc_main_content():
                     hover_background "br_i_info_hover"
                     action NullAction()
 
-                    tooltip "Providing contact information allows the developer to contact you in case they need more information about the issue.\n\nNOTE: If you wish to use an email and you are unable to enter the '@' symbol, please replace it with something like '(at)'."
+                    tooltip "Providing contact information allows the developer to contact you in case they need more information about the issue.\n\nNOTE: If you wish to use an email and you are unable to enter the '@' symbol, please replace it with something like ' at '."
                 
                 text ":":
                     yalign 0.5
@@ -76,18 +77,29 @@ screen br_usc_main_content():
                         text "[br_contactInfo]":
                             xsize 1.0
                             color br_PRIMARY_TEXT_COLOR
+                
+                if (br_contactInfo):
+                    
+                    null width 20
+
+                    text "Type:":
+                        yalign 0.5
+                    
+                    fixed:
+                        xysize CONTACT_INFO_DD_SIZE
+                        use br_usc_dropdown(CONTACT_INFO_DD_ID, br_CONTACT_INFO_TYPES, "br_contact_info_index", pixelHeight=CONTACT_INFO_DD_SIZE[1])
 
             null height 40
 
             hbox:
-                ysize dropdownSize[1]
+                ysize CATEGORY_DD_SIZE[1]
 
                 text "Please select a category: ":
                     yalign 0.5
                 
                 fixed:
-                    xysize dropdownSize
-                    use br_usc_dropdown("categories_dropdown", br_CATEGORIES, "br_category_index", pixelHeight=dropdownSize[1])
+                    xysize CATEGORY_DD_SIZE
+                    use br_usc_dropdown(CATEGORY_DD_ID, br_CATEGORIES, "br_category_index", pixelHeight=CATEGORY_DD_SIZE[1])
 
             null height 40
 

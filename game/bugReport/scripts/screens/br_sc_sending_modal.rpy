@@ -21,24 +21,24 @@ screen br_sc_sending_modal():
 
             style_prefix "br_st_modal"
 
-            if br_sentSuccessfully:
+            if br_sent_successfully:
                 use br_usc_button_exit(Function(br_Close))
-            elif not br_sentSuccessfully:
+            elif not br_sent_successfully:
                 use br_usc_button_exit(Function(br_CloseSendingModal))
             
             vbox:
             
-                if br_sentSuccessfully is None:
+                if br_sent_successfully is None:
                 
                     text "Sending bug report. Please wait..."               
     
-                elif br_sentSuccessfully:
+                elif br_sent_successfully:
                 
                     text "Bug report sent. Thank you!"
     
                     use br_usc_button("Close", align=(0.5, 0.5), actions=Function(br_Close))
 
                 else:
-                    text "[br_errorMessage]"
+                    text "[br_error_message]"
                     
                     use br_usc_button("Back", align=(0.5, 0.5), actions=Function(br_CloseSendingModal))
