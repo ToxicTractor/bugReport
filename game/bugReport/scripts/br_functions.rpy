@@ -4,7 +4,6 @@
 
 ## python functions used in the screens
 init python:
-    import bugreport_smtp
     from email.mime.text import MIMEText
     from email.mime.image import MIMEImage
     from email.mime.multipart import MIMEMultipart
@@ -139,6 +138,7 @@ init python:
 
     ## creates the email object and attempt to send it
     def br_TrySend():
+        import bugreport_smtp
 
         ## show the sending modal
         renpy.show_screen("br_sc_sending_modal")
