@@ -65,11 +65,13 @@ style br_st_modal_vbox:
 style br_st_button_text:
     color br_PRIMARY_TEXT_COLOR
     hover_color br_PRIMARY_TEXT_HOVER_COLOR
+    insensitive_background br_SECONDARY_TEXT_COLOR
 
 style br_st_button_frame:
     background None
     idle_background br_t_frame(br_BUTTON_IDLE_COLOR)
     hover_background br_t_frame(br_BUTTON_HOVER_COLOR)
+    insensitive_background br_t_frame(br_BUTTON_INSENSITIVE_COLOR)
 
 
 ##---------------------------------------------------------------------

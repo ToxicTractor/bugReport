@@ -30,6 +30,12 @@ define br_CONTACT_INFO_TYPES = ["Email", "Discord", "Other"]
 
 
 ##---------------------------------------------------------------------
+## other settings
+##---------------------------------------------------------------------
+define br_allow_empty_description = True ## set this to 'False' if you want to force the player to put in a description
+
+
+##---------------------------------------------------------------------
 ## ui colors
 ##---------------------------------------------------------------------
 define br_PRIMARY_PANEL_COLOR = "#aaa"
@@ -37,6 +43,7 @@ define br_SECONDAY_PANEL_COLOR = "#ccc"
 
 define br_BUTTON_IDLE_COLOR = "#888"
 define br_BUTTON_HOVER_COLOR = "#ccc"
+define br_BUTTON_INSENSITIVE_COLOR = "#555"
 
 define br_PRIMARY_TEXT_COLOR = "#000"
 define br_SECONDARY_TEXT_COLOR = "#444"

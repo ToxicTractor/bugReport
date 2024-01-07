@@ -3,27 +3,34 @@
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
 ## button screen for the main screen
-screen br_usc_button(buttonText, pos=None, anchor=None, align=None, actions=NullAction()):
-
-    button:
-        style_prefix "br_st_button"
-
-        if align is not None:
-            align align
-        else:
-            if pos is not None:
-                pos pos
-            if anchor is not None:
-                anchor anchor
-
-        padding(0, 0)
-
-        action actions
+screen br_usc_button(buttonText, actions=NullAction(), sensitiveIf=True, notSensitiveTooltip=None):
+    
+    fixed:
         
-        frame:
-            padding(25, 15)
-            
-            text buttonText
+        button:
+            style_prefix "br_st_button"
+            padding(0, 0)
+            xysize(1.0, 1.0)
+
+            action actions
+
+            sensitive sensitiveIf
+
+            frame:
+                padding(25, 15)
+                xysize(1.0, 1.0)
+                text buttonText:
+                    align(0.5, 0.5)
+
+        if (not sensitiveIf):
+            button:
+                padding(0, 0)
+                xysize(1.0, 1.0)
+
+                action NullAction()
+
+                if (bool(notSensitiveTooltip)):
+                    tooltip notSensitiveTooltip
 
 
 screen br_usc_button_exit(actions, align=(1.0, 0.0)):

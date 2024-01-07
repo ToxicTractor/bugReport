@@ -35,10 +35,16 @@ screen br_sc_sending_modal():
                 elif br_sent_successfully:
                 
                     text "Bug report sent. Thank you!"
-    
-                    use br_usc_button("Close", align=(0.5, 0.5), actions=Function(br_Close))
+
+                    fixed:
+                        xalign 0.5
+                        xysize(150, 80)
+                        use br_usc_button("Close", Function(br_Close))
 
                 else:
                     text "[br_error_message]"
                     
-                    use br_usc_button("Back", align=(0.5, 0.5), actions=Function(br_CloseSendingModal))
+                    fixed:
+                        xalign 0.5
+                        xysize(150, 80)
+                        use br_usc_button("Back", Function(br_CloseSendingModal))
