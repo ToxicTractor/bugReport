@@ -79,6 +79,7 @@ init python:
     ## resets the store variables
     def br_CloseSendingModal():
         global br_error_message
+        global br_error_info
         global br_sent_successfully
         
         ## hides the sending modal
@@ -86,6 +87,7 @@ init python:
 
         ## reset modal variables
         br_error_message = None
+        br_error_info = None
         br_sent_successfully = None
 
 
@@ -204,12 +206,15 @@ init python:
 
 
     ## callback function for when an attempt to send a mail is done
-    def br_TrySendCallback(success, errorMessage):
-        global br_error_message
+    def br_TrySendCallback(success, errorMessage, errorInfo):
         global br_sent_successfully
         
         if not success:
+            global br_error_message
+            global br_error_info
+
             br_error_message = errorMessage
+            br_error_info = errorInfo
 
         br_sent_successfully = success
 

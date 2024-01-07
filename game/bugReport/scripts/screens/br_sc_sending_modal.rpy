@@ -25,7 +25,7 @@ screen br_sc_sending_modal():
                 use br_usc_button_exit(Function(br_Close))
             elif not br_sent_successfully:
                 use br_usc_button_exit(Function(br_CloseSendingModal))
-            
+
             vbox:
             
                 if br_sent_successfully is None:
@@ -42,8 +42,17 @@ screen br_sc_sending_modal():
                         use br_usc_button("Close", Function(br_Close))
 
                 else:
-                    text "[br_error_message]"
+                    fixed:
+                        xysize(1.0, 0.3)
+
+                        text "[br_error_message]":
+                            yalign 0.0
                     
+                        text "[br_error_info]":
+                            yalign 1.0
+                            size 20
+                            color "#800"
+
                     fixed:
                         xalign 0.5
                         xysize(150, 80)

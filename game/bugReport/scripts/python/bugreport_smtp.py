@@ -22,6 +22,7 @@ def ThreadedSendSMTP(mail, onComplete):
     ## set up needed variables
     success = False
     errorMessage = None
+    errorInfo = None
     
     ## set the sender and receiver of the mail
     mail['From'] = RECEIVER
@@ -34,11 +35,12 @@ def ThreadedSendSMTP(mail, onComplete):
             client.login(SENDER, PASSWORD)
             client.sendmail(SENDER, RECEIVER, mail.as_string())
     ## if something went wrong we set the error message
-    except:
+    except Exception as ex:
         errorMessage = "An error occured. Bug report was not sent."
+        errorInfo = ex
     ## if nothing went wrong we set success to true
     else:
         success = True
     ## finally we call the onComplete callback method
     finally:
-        onComplete(success, errorMessage)
+        onComplete(success, errorMessage, errorInfo)

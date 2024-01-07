@@ -8,6 +8,7 @@
 default br_description = None
 default br_sent_successfully = None
 default br_error_message = None
+default br_error_info = None
 default br_screenshot_path = None
 default br_original_rollback_setting = None
 default br_original_input_next_line = None
