@@ -154,12 +154,12 @@ screen br_usc_main_content():
                 fixed:
                     xalign 0.0
                     xsize 200
-                    use br_usc_button("Close", Function(br_Close))
+                    use br_usc_button("Close", actions=Function(br_Close))
 
                 fixed:
                     xalign 1.0
                     xsize 200
-                    use br_usc_button("Send", Function(br_TrySend), (br_allow_empty_description or bool(br_description)), "You must provide a description!")
+                    use br_usc_button("Send", actions=Function(br_TrySend), sensitiveIf=(br_allow_empty_description or bool(br_description)), notSensitiveTooltip="You must provide a description!")
             
             null height 40
 

@@ -35,6 +35,8 @@ init python:
         global br_original_rollback_setting
         global br_original_input_enter
         global br_original_input_next_line
+        global br_original_show_quick_menu
+        global quick_menu
 
         ## disable rollback while the bug report screen is open
         br_original_rollback_setting = config.rollback_enabled
@@ -48,8 +50,15 @@ init python:
         br_original_input_next_line = config.keymap["input_next_line"]
         config.keymap["input_next_line"] = ["K_RETURN", "K_KP_ENTER"]        
 
+        ## hide the report bug screen before taking the screenshot
+        renpy.hide_screen("br_sc_report_bug")
+
         ## Take a screen shot
         br_Screenshot()
+
+        ## set hide the quick menu after the screenshot was taken
+        br_original_show_quick_menu = quick_menu
+        quick_menu = False
 
         ## show the bug report screen
         renpy.show_screen("br_sc_main")
@@ -59,12 +68,16 @@ init python:
     def br_Close():
         global br_description
         global br_screenshot_path
+        global quick_menu
 
         ## start by closing the sending modal in case it is open
         br_CloseSendingModal()
 
         ## hide all the bugreport screens
         renpy.hide_screen("br_sc_main")
+
+        ## show the bug report button again
+        renpy.show_screen("br_sc_report_bug")
 
         ## reset variables
         br_description = None
@@ -74,6 +87,9 @@ init python:
         config.keymap['input_next_line'] = br_original_input_next_line
         config.keymap['input_enter'] = br_original_input_enter
         config.rollback_enabled = br_original_rollback_setting
+
+        ## restore the value of quick_menu
+        quick_menu = br_original_show_quick_menu
         
 
     ## resets the store variables
@@ -191,13 +207,20 @@ init python:
 
         mail.attach(MIMEText(body, 'html'))
         
+        ## attack edited screenshot if it exists
+        if br_screenshot_edits is not None:
+
+            edits = MIMEImage(br_screenshot_edits, name="screenshot_edited.png")
+
+            mail.attach(edits)
+
         ## attach the screenshot if it exists
         if os.path.exists(br_screenshot_path):
 
             with open(br_screenshot_path, 'rb') as file:
                 imageData = file.read()
 
-            image = MIMEImage(imageData, name=os.path.basename(br_screenshot_path))
+            image = MIMEImage(imageData, name="screenshot.png")
 
             mail.attach(image)
 

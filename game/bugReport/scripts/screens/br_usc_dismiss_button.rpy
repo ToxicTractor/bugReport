@@ -1,3 +1,7 @@
+## this file is part of Ren'Py plug-in "bugReport" by ToxicTractor
+## the project can be found here on GitHub:
+## https://github.com/ToxicTractor/bugReport/tree/main
+
 screen br_usc_dismiss_button(actions):
     fixed:
         ## make sure the entire screen is covered no matter where the element is placed

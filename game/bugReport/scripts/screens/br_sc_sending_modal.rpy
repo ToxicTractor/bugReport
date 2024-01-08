@@ -39,7 +39,7 @@ screen br_sc_sending_modal():
                     fixed:
                         xalign 0.5
                         xysize(150, 80)
-                        use br_usc_button("Close", Function(br_Close))
+                        use br_usc_button("Close", actions=Function(br_Close))
 
                 else:
                     fixed:
@@ -56,4 +56,4 @@ screen br_sc_sending_modal():
                     fixed:
                         xalign 0.5
                         xysize(150, 80)
-                        use br_usc_button("Back", Function(br_CloseSendingModal))
+                        use br_usc_button("Back", actions=Function(br_CloseSendingModal))

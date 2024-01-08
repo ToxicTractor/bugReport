@@ -13,7 +13,8 @@ default br_screenshot_path = None
 default br_original_rollback_setting = None
 default br_original_input_next_line = None
 default br_original_input_enter = None
-
+default br_original_show_quick_menu = None
+default br_screenshot_edits = None
 
 ##---------------------------------------------------------------------
 ## non-resetting variables
