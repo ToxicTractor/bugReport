@@ -2,9 +2,9 @@
 ## the project can be found here on GitHub:
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
-SENDER = "sender@gmail.com"
-PASSWORD = "app-password"
-RECEIVER = "receiver@gmail.com"
+SENDER = "theawesomegamers64@gmail.com"
+PASSWORD = "jtjqilbqdsequnol"
+RECEIVER = "toxictractor@outlook.com"
 HOST = "smtp.gmail.com"
 PORT = 465
 

@@ -34,7 +34,15 @@ screen br_sc_main():
         else:
             
             use br_usc_main_content
-        
+    
+    ## edit screenshot button at the top right
+    fixed:
+        xysize(100, 100)
+        yalign 0.2
+        xanchor 1.0
+        xpos config.screen_width - 50
+        use br_usc_button(buttonIcon="bugReport/images/edit_screenshot.webp", actions=Show("br_sc_edit_screenshot"), baseTooltip="Edit the screenshot of the report.")
+
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
     use br_usc_button_exit(Function(br_Close), (0.99, 0.01 * scaleFactor))
