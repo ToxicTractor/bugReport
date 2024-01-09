@@ -6,36 +6,38 @@ screen br_sc_edit_screenshot:
     modal True
     zorder 200
     
-    default currentTool = 0
-    default currentColor = 0
+    default painter = ScreenshotPainter(br_screenshot_path, br_EDIT_SCREENSHOT_COLORS)
+
+    $ cancelActions = Show("br_sc_confirmation_modal", None, "Are you sure you want to cancel? Your changes will not be saved.", Hide(CurrentScreenName()))
 
     key "game_menu" action [Hide(CurrentScreenName())]
 
     add "br_i_modalOverlay":
         xysize(1.0, 1.0)
 
-    default painter = ScreenshotPainter(br_screenshot_path)
-
     frame:
-        padding(100, 100)
+        padding(int(100 * (config.screen_width / config.screen_height)), 100)
         background None
 
         add painter
 
     hbox:
         ysize 50
-        align(0.5, 0.98)
+        xalign 0.5
+        ypos config.screen_height - 50
+        yanchor 0.5
         spacing 20
 
         hbox:
             spacing 20
-            for i in range(len(br_EDIT_SCREENSHOT_COLORS)):
+
+            for i in range(len(painter.COLORS)):
                 fixed:
                     xysize(50, 1.0)
                     use br_usc_button(
-                        buttonIcon=br_t_frame(br_EDIT_SCREENSHOT_COLORS[i]), 
-                        actions=SetScreenVariable("currentColor", i),
-                        sensitiveIf=(currentColor != i)
+                        buttonIcon=br_t_frame(painter.COLORS[i]), 
+                        actions=Function(painter.SetColor, i),
+                        sensitiveIf=(painter.color != i)
                         )
 
         null width 100
@@ -47,8 +49,8 @@ screen br_sc_edit_screenshot:
                 xysize(50, 1.0)
                 use br_usc_button(
                     buttonIcon="bugReport/images/pencil_icon.webp", 
-                    actions=SetScreenVariable("currentTool", 0),
-                    sensitiveIf=(currentTool == 1),
+                    actions=Function(painter.SetTool, 0),
+                    sensitiveIf=(painter.tool != 0),
                     baseTooltip="Draw"
                     )
 
@@ -56,14 +58,41 @@ screen br_sc_edit_screenshot:
                 xysize(50, 1.0)
                 use br_usc_button(
                     buttonIcon="bugReport/images/eraser_icon.webp", 
-                    actions=SetScreenVariable("currentTool", 1),
-                    sensitiveIf=(currentTool == 0),
+                    actions=Function(painter.SetTool, 1),
+                    sensitiveIf=(painter.tool != 1),
                     baseTooltip="Erase"
+                    )
+            
+            fixed:
+                xysize(50, 1.0)
+                use br_usc_button(
+                    buttonIcon="bugReport/images/clear_icon.webp", 
+                    actions=Function(painter.ClearEdits),
+                    baseTooltip="Clear"
+                    )
+        
+        null width 200
+
+        hbox:
+            spacing 50
+
+            fixed:
+                xysize(150, 1.0) 
+                use br_usc_button(
+                    buttonText="Cancel", 
+                    actions=cancelActions
+                    )
+
+            fixed:
+                xysize(150, 1.0)
+                use br_usc_button(
+                    buttonText="Confirm", 
+                    actions=Function(painter.ConfirmEdits) ## save edits
                     )
     
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
-    use br_usc_button_exit(Function(br_Close), (0.99, 0.01 * scaleFactor))
+    use br_usc_button_exit(cancelActions, (0.99, 0.01 * scaleFactor))
 
     ## get the current tooltip
     $ tooltip = GetTooltip()
