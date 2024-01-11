@@ -156,7 +156,7 @@ init python:
 
     ## creates the email object and attempt to send it
     def br_TrySend():
-        import bugreport_smtp
+        import platform, bugreport_smtp
 
         ## show the sending modal
         renpy.show_screen("br_sc_sending_modal")
