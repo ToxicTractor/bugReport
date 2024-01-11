@@ -21,8 +21,13 @@ screen br_usc_dropdown(id, values, outputVariable, arrowSize=24, pixelHeight=40)
             xsize 1.0
             padding(10, 0)
 
-            text values[globals()[outputVariable]]:
-                yalign 0.5
+            if ('.' in outputVariable):
+                $ className, attributeName = outputVariable.split('.', 1)
+                text values[getattr(globals()[className], attributeName)]:
+                    yalign 0.5
+            else:
+                text values[globas()[outputVariable]]:
+                    yalign 0.5
 
             fixed:
                 xysize(arrowSize, arrowSize)
@@ -72,8 +77,14 @@ screen br_sc_dropdown_options(id, values, outputVariable, pixelHeight, maxPixelH
 
                                 frame:
                                     xysize(1.0, 1.0)
-                                    text values[i]:
-                                        if (globals()[outputVariable] == i):
-                                            color br_PRIMARY_TEXT_COLOR
+                                    if ('.' in outputVariable):
+                                        $ className, attributeName = outputVariable.split('.', 1)
+                                        text values[i]:
+                                            if (getattr(globals()[className], attributeName) == i):
+                                                color br_PRIMARY_TEXT_COLOR
+                                    else:
+                                        text values[i]:
+                                            if (globals()[outputVariable]):
+                                                color br_PRIMARY_TEXT_COLOR
                 
                     vbar value YScrollValue("[id]_viewport") unscrollable "hide" style "br_st_vbar"

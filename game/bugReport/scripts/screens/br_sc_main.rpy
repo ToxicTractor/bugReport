@@ -11,6 +11,8 @@ screen br_sc_main():
 
     key "game_menu" action NullAction()
 
+    $ closeActions = Function(br_main.Close) if not br_main.description else Show("br_sc_confirmation_modal", None, "Are you sure you want to close the window. Your description will be lost!", Function(br_main.Close))
+
     frame:
         xysize(1.0, 1.0)
         xpadding 50
@@ -45,7 +47,7 @@ screen br_sc_main():
 
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
-    use br_usc_button_exit(Function(br_Close), (0.99, 0.01 * scaleFactor))
+    use br_usc_button_exit(closeActions, (0.99, 0.01 * scaleFactor))
 
     ## get the current tooltip
     $ tooltip = GetTooltip()

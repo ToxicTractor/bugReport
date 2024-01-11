@@ -174,7 +174,7 @@ init python:
 
         def ConfirmEdits(self):
             import pygame
-            
+
             ## if no edits were made, we just return
             if (len(self._surfaces) == 0):
                 
@@ -204,8 +204,7 @@ init python:
             with open(savePath, "rb") as file:
                 self.editedScreenshot = file.read()
 
-                global br_screenshot_edits
-                br_screenshot_edits = self.editedScreenshot
+                br_main.editedScreenshotData = self.editedScreenshot
 
             if (br_ScreenshotPainter.DEBUG):
                 print(f"Edits confirmed. Edits was saved to: {savePath}")

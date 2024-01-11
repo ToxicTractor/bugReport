@@ -6,7 +6,7 @@ screen br_sc_edit_screenshot:
     modal True
     zorder 200
     
-    default painter = br_ScreenshotPainter(br_screenshot_path)
+    default painter = br_ScreenshotPainter(br_main.screenshotPath)
 
     $ cancelActions = Show("br_sc_confirmation_modal", None, "Are you sure you want to cancel? Your changes will not be saved.", Hide(CurrentScreenName()))
     $ confirmActions = [Function(painter.ConfirmEdits), Hide(CurrentScreenName())]

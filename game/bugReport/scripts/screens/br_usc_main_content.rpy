@@ -12,6 +12,8 @@ screen br_usc_main_content():
     $ CONTACT_INFO_DD_SIZE = (200, 40)
     $ CONTACT_INFO_DD_ID = "contact_info_type_dropdown"
 
+    $ closeActions = Function(br_main.Close) if not br_main.description else Show("br_sc_confirmation_modal", None, "Are you sure you want to close the window. Your description will be lost!", Function(br_main.Close))
+    
     fixed:
         xysize(1.0, 1.0)
         
@@ -67,18 +69,18 @@ screen br_usc_main_content():
                     if (selectedTextArea == 1):
 
                         input:
-                            if (br_contactInfo is not None):
-                                default br_contactInfo
+                            if (br_main.contactInfo):
+                                default br_main.contactInfo
                             xysize(1.0, 1.0)
-                            changed br_OnContactInfoChanged
+                            changed br_main.OnContactInfoChanged
 
-                    elif (br_contactInfo is not None):
+                    elif (br_main.contactInfo):
 
-                        text "[br_contactInfo]":
+                        text "[br_main.contactInfo]":
                             xsize 1.0
                             color br_PRIMARY_TEXT_COLOR
                 
-                if (br_contactInfo):
+                if (br_main.contactInfo):
                     
                     null width 20
 
@@ -87,7 +89,7 @@ screen br_usc_main_content():
                     
                     fixed:
                         xysize CONTACT_INFO_DD_SIZE
-                        use br_usc_dropdown(CONTACT_INFO_DD_ID, br_CONTACT_INFO_TYPES, "br_contact_info_index", pixelHeight=CONTACT_INFO_DD_SIZE[1])
+                        use br_usc_dropdown(CONTACT_INFO_DD_ID, br_main.CONTACT_INFO_TYPES, "br_main.contactInfoTypeIndex", pixelHeight=CONTACT_INFO_DD_SIZE[1])
 
             null height 40
 
@@ -99,7 +101,7 @@ screen br_usc_main_content():
                 
                 fixed:
                     xysize CATEGORY_DD_SIZE
-                    use br_usc_dropdown(CATEGORY_DD_ID, br_CATEGORIES, "br_category_index", pixelHeight=CATEGORY_DD_SIZE[1])
+                    use br_usc_dropdown(CATEGORY_DD_ID, br_main.CATEGORIES, "br_main.categoryIndex", pixelHeight=CATEGORY_DD_SIZE[1])
 
             null height 40
 
@@ -132,15 +134,15 @@ screen br_usc_main_content():
                         if (selectedTextArea == 2):
 
                             input:
-                                if (br_description is not None):
-                                    default br_description
+                                if (br_main.description):
+                                    default br_main.description
                                 xsize 1.0
                                 multiline True
-                                changed br_OnDescriptionChanged
+                                changed br_main.OnDescriptionChanged
 
-                        elif (br_description is not None):
+                        elif (br_main.description):
 
-                            text "[br_description]":
+                            text "[br_main.description]":
                                 xsize 1.0
                                 color br_PRIMARY_TEXT_COLOR
                         
@@ -154,12 +156,12 @@ screen br_usc_main_content():
                 fixed:
                     xalign 0.0
                     xsize 200
-                    use br_usc_button("Close", actions=Function(br_Close))
+                    use br_usc_button("Close", actions=closeActions)
 
                 fixed:
                     xalign 1.0
                     xsize 200
-                    use br_usc_button("Send", actions=Function(br_TrySend), sensitiveIf=(br_allow_empty_description or bool(br_description)), notSensitiveTooltip="You must provide a description!")
+                    use br_usc_button("Send", actions=Function(br_main.TrySend), sensitiveIf=(br_allow_empty_description or br_main.description), notSensitiveTooltip="You must provide a description!")
             
             null height 40
 

@@ -18,7 +18,7 @@ screen br_sc_report_bug():
         hovered SetLocalVariable('isHovered', True)
         unhovered [SetLocalVariable('isHovered', False), SetLocalVariable('showTooltip', False)]
 
-        action Function(br_Open)
+        action Function(br_main.Open)
 
         tooltip "Report a bug"
     

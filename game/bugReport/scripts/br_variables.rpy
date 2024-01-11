@@ -2,37 +2,41 @@
 ## the project can be found here on GitHub:
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
-##---------------------------------------------------------------------
-## resetting variables
-##---------------------------------------------------------------------
-default br_description = None
-default br_sent_successfully = None
-default br_error_message = None
-default br_error_info = None
-default br_screenshot_path = None
-default br_original_rollback_setting = None
-default br_original_input_next_line = None
-default br_original_input_enter = None
-default br_original_show_quick_menu = None
-default br_screenshot_edits = None
+init -2 python:
+    ## get the directory of the python folder for the current Ren'Py installation. This is not in your project folder but in the 
+    ## installation directory for Ren'Py itself. The path might be different on other machines but it should look something like:
+    ## "renpy install path"/lib/"python version"
+    ## it compiles to this folder as this was the only way I could get RenPy to import the compiled '.pyc' files on android devices.
+    br_RENPY_PYTHON_DIR = os.path.join(sys.base_prefix, sys.platlibdir, f"python{sys.version_info.major}.{sys.version_info.minor}")
+    
+    ## path to the 'bugReport' folder
+    br_BUGREPORT_PACKAGE_DIR = os.path.join(config.gamedir, "bugReport")
+    
+    ## path to the py files
+    br_SMTPLIB_PY = os.path.join(br_BUGREPORT_PACKAGE_DIR, "scripts", "python", "smtplib.py")
+    br_BUGREPORTSMTP_PY = os.path.join(br_BUGREPORT_PACKAGE_DIR, "scripts", "python", "bugreport_smtp.py")
 
-##---------------------------------------------------------------------
-## non-resetting variables
-##---------------------------------------------------------------------
-default br_contactInfo = None
-default br_category_index = 0
-default br_contact_info_index = 0
+    ## define the name of the dev folder
+    br_DEV_FOLDER = "_dev"
 
+    ## ----------------------------------------------------------------
+    ## exclude the '.py' files from builds of the game
+    build.classify("**bugreport_smtp.py", None)
+    build.classify("**smtplib.py", None)
 
-##---------------------------------------------------------------------
-## dropdown options
-##---------------------------------------------------------------------
-define br_CATEGORIES = ["Spelling/Grammar/Text", "Critical/Progress Blocking", "Gameplay/Logic", "Visual/Graphical", "Other"]
-define br_CONTACT_INFO_TYPES = ["Email", "Discord", "Other"]
+    ## exclude contents of the '_dev' folder. This is where screenshots are saved when 'config.developer == True'
+    build.classify(f"**/bugReport/{br_DEV_FOLDER}/**", None)
+    ## ----------------------------------------------------------------
 
 
 ##---------------------------------------------------------------------
-## other settings
+## main
+##---------------------------------------------------------------------
+default br_main = br_BugReport()
+
+
+##---------------------------------------------------------------------
+## settings
 ##---------------------------------------------------------------------
 define br_allow_empty_description = True ## set this to 'False' if you want to force the player to put in a description
 
