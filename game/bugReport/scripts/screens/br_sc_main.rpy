@@ -4,23 +4,25 @@
 
 ## creates the main bug report screen.
 screen br_sc_main():
-
     zorder 197
-
     modal True
 
-    key "game_menu" action NullAction()
-
+    ## close actions
     $ closeActions = Function(br_main.Close) if not br_main.description else Show("br_sc_confirmation_modal", None, "Are you sure you want to close the window. Your description will be lost!", Function(br_main.Close))
+    
+    ## make sure that the "game_menu" key doesn't open the menu and instead does the closeActions
+    key "game_menu" action closeActions
 
+    ## the main frame
     frame:
+        style_prefix "br_st"
         xysize(1.0, 1.0)
         xpadding 50
 
-        style_prefix "br_st"
-
+        ## set the background of the box to the modal overlay
         background "br_i_modalOverlay"
 
+        ## display a mobile friendly version of the screen if we are on android or ios
         if renpy.android or renpy.ios:
             side "c r":
                 area(0, 0, config.screen_width, int(config.screen_height / 2))

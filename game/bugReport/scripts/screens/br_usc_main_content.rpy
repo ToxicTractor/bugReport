@@ -4,19 +4,18 @@
 
 screen br_usc_main_content():
     
+    ## variables for keeping track which text area is selected and hovered
     default selectedTextArea = 0
     default hoveringTextArea = 0
 
-    $ CATEGORY_DD_SIZE = (400, 40)
-    $ CATEGORY_DD_ID = "category_dropdown"
-    $ CONTACT_INFO_DD_SIZE = (200, 40)
-    $ CONTACT_INFO_DD_ID = "contact_info_type_dropdown"
-
+    ## close actions
     $ closeActions = Function(br_main.Close) if not br_main.description else Show("br_sc_confirmation_modal", None, "Are you sure you want to close the window. Your description will be lost!", Function(br_main.Close))
     
+    ## fixed area that fills the available space
     fixed:
         xysize(1.0, 1.0)
         
+        ## vbox for all the bits of the main screen
         vbox:
             xfill True
 
@@ -30,11 +29,13 @@ screen br_usc_main_content():
             
             null height 40
 
+            ## contact info
             hbox:
                 ysize 40
                 text "Contact information (optional)":
                     yalign 0.5
                 
+                ## small questing mark button for displaying a tooltip about contact info
                 button:
                     xysize(24, 24)
                     
@@ -49,15 +50,19 @@ screen br_usc_main_content():
 
                 null width 20
 
+                ## frame for the text box
                 frame:
                     style_prefix "br_st"
                     xysize(500, 40)
 
+                    ## if the text field is selected or hovered, display the hover background
                     if (hoveringTextArea == 1 or selectedTextArea == 1):
                         background br_t_frame(br_SECONDAY_PANEL_COLOR)
+                    ## otherwise show the idle background
                     else:
                         background br_t_frame(br_PRIMARY_PANEL_COLOR)
 
+                    ## button for selecting the text field
                     button:
                         xysize(1.0, 1.0)
 
@@ -66,20 +71,26 @@ screen br_usc_main_content():
 
                         action [SetLocalVariable("selectedTextArea", 1), SetLocalVariable("hoveringTextArea", 0)]
 
+                    ## if the selected text field is this, show the input field
                     if (selectedTextArea == 1):
 
                         input:
+                            ## if the contact info already contains something, show that in the box form the start
                             if (br_main.contactInfo):
                                 default br_main.contactInfo
                             xysize(1.0, 1.0)
+                            
+                            ## calls this function when the value of the text box was changed
                             changed br_main.OnContactInfoChanged
 
+                    ## otherwise if the contact info is not empty display it in a text instead
                     elif (br_main.contactInfo):
 
                         text "[br_main.contactInfo]":
                             xsize 1.0
                             color br_PRIMARY_TEXT_COLOR
                 
+                ## if any contact info was given, display a drowdown where you can select the type of contact info you entered
                 if (br_main.contactInfo):
                     
                     null width 20
@@ -88,20 +99,21 @@ screen br_usc_main_content():
                         yalign 0.5
                     
                     fixed:
-                        xysize CONTACT_INFO_DD_SIZE
-                        use br_usc_dropdown(CONTACT_INFO_DD_ID, br_main.CONTACT_INFO_TYPES, "br_main.contactInfoTypeIndex", pixelHeight=CONTACT_INFO_DD_SIZE[1])
+                        xysize (200, 40)
+                        use br_usc_dropdown("contact_info_type_dropdown", br_main.CONTACT_INFO_TYPES, "br_main.contactInfoTypeIndex", pixelHeight=CONTACT_INFO_DD_SIZE[1])
 
             null height 40
 
+            ## category dropdown
             hbox:
-                ysize CATEGORY_DD_SIZE[1]
+                ysize 40
 
                 text "Please select a category: ":
                     yalign 0.5
                 
                 fixed:
-                    xysize CATEGORY_DD_SIZE
-                    use br_usc_dropdown(CATEGORY_DD_ID, br_main.CATEGORIES, "br_main.categoryIndex", pixelHeight=CATEGORY_DD_SIZE[1])
+                    xysize (400, 40)
+                    use br_usc_dropdown("category_dropdown", br_main.CATEGORIES, "br_main.categoryIndex", pixelHeight=CATEGORY_DD_SIZE[1])
 
             null height 40
 
@@ -109,6 +121,7 @@ screen br_usc_main_content():
             
             null height 10
 
+            ## description text box, functions similarly to the contact info box
             frame:
                 style_prefix "br_st"
                 xysize (1.0, 0.6)
@@ -149,7 +162,8 @@ screen br_usc_main_content():
                     vbar value YScrollValue("viewport_description") unscrollable "hide" style "br_st_vbar"
 
             null height 40
-
+            
+            ## close and send buttons
             fixed:
                 xysize(1.0, 80)
 
@@ -165,9 +179,11 @@ screen br_usc_main_content():
             
             null height 40
 
+            ## disclamer at the buttom
             text "A bug report contains a screenshot, some system information and whatever you enter on this page.":
                 xalign 0.5
     
+    ## if a text box is selected, put in the custom dismiss button
     if (selectedTextArea != 0):
         use br_usc_dismiss_button(SetLocalVariable("selectedTextArea", 0))
     
