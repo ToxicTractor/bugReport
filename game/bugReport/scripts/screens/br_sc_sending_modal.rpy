@@ -21,8 +21,8 @@ screen br_sc_sending_modal():
             xysize(0.4, 0.4)
             padding(10, 10)
 
-            ## if the bug report was send sucessfully, the close button closes the entire overlay, including the main screen
-            if br_main.sentSucessfully:
+            ## if the bug report was send successfully, the close button closes the entire overlay, including the main screen
+            if br_main.sentSuccessfully:
                 use br_usc_button_exit(Function(br_main.Close))
             ## otherwise it just closes the sending modal
             else:
@@ -32,12 +32,12 @@ screen br_sc_sending_modal():
             vbox:
 
                 ## if sentSuccessfully is None the bugreport is in the progress of being sent
-                if br_main.sentSucessfully is None:
+                if br_main.sentSuccessfully is None:
                 
                     text "Sending bug report. Please wait..."               
 
                 ## if the report was send successfully
-                elif br_main.sentSucessfully:
+                elif br_main.sentSuccessfully:
                 
                     text "Bug report sent. Thank you!"
 

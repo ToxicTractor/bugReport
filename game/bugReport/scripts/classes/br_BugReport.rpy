@@ -16,7 +16,7 @@ init python:
             self.editedScreenshotData = None
             self.screenshotPath = None
 
-            ## these variables are overwritten when the main screne is opened
+            ## these variables are overwritten when the main screen is opened
             self.oldRollbackEnabled = None
             self.oldInputNextLine = None
             self.oldInputEnter = None
@@ -25,7 +25,7 @@ init python:
             ## these variables are reset when the sending modal screen is closed
             self.errorMessage = None
             self.errorInfo = None
-            self.sentSucessfully = None
+            self.sentSuccessfully = None
 
             ## these variables does not reset
             self.contactInfo = None
@@ -69,7 +69,7 @@ init python:
             
             ## disable rollback 
             config.rollback_enabled = False
-            ## disable the normal behaviour for pressing enter
+            ## disable the normal behavior for pressing enter
             config.keymap["input_enter"] = None
             ## set new line key
             config.keymap["input_next_line"] = ["K_RETURN", "K_KP_ENTER"]        
@@ -118,7 +118,7 @@ init python:
             ## reset modal variables
             self.errorMessage = None
             self.errorInfo = None
-            self.sentSucessfully = None
+            self.sentSuccessfully = None
 
 
         ## callback function for when the contact info changes
@@ -244,6 +244,6 @@ init python:
                 self.errorMessage = errorMessage
                 self.errorInfo = errorInfo
 
-            self.sentSucessfully = success
+            self.sentSuccessfully = success
 
             renpy.restart_interaction()

@@ -36,7 +36,7 @@ def ThreadedSendSMTP(mail, onComplete):
             client.sendmail(SENDER, RECEIVER, mail.as_string())
     ## if something went wrong we set the error message
     except Exception as ex:
-        errorMessage = "An error occured. Bug report was not sent."
+        errorMessage = "An error occurred. Bug report was not sent."
         errorInfo = ex
     ## if nothing went wrong we set success to true
     else:

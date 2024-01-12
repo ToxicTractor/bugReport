@@ -45,7 +45,7 @@ define br_allow_empty_description = True ## set this to 'False' if you want to f
 ## ui colors
 ##---------------------------------------------------------------------
 define br_PRIMARY_PANEL_COLOR = "#aaa"
-define br_SECONDAY_PANEL_COLOR = "#ccc"
+define br_SECONDARY_PANEL_COLOR = "#ccc"
 
 define br_BUTTON_IDLE_COLOR = "#888"
 define br_BUTTON_HOVER_COLOR = "#ccc"

@@ -38,7 +38,7 @@ screen br_usc_button(buttonText=None, buttonIcon=None, actions=NullAction(), sen
         ## if the button is not sensitive
         if (not sensitiveIf):
 
-            ## we ma a new button with the same dimentions as the first, but with no visuals
+            ## we ma a new button with the same dimensions as the first, but with no visuals
             button:
                 padding(0, 0)
                 xysize(1.0, 1.0)

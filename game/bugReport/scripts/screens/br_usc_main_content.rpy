@@ -57,7 +57,7 @@ screen br_usc_main_content():
 
                     ## if the text field is selected or hovered, display the hover background
                     if (hoveringTextArea == 1 or selectedTextArea == 1):
-                        background br_t_frame(br_SECONDAY_PANEL_COLOR)
+                        background br_t_frame(br_SECONDARY_PANEL_COLOR)
                     ## otherwise show the idle background
                     else:
                         background br_t_frame(br_PRIMARY_PANEL_COLOR)
@@ -90,7 +90,7 @@ screen br_usc_main_content():
                             xsize 1.0
                             color br_PRIMARY_TEXT_COLOR
                 
-                ## if any contact info was given, display a drowdown where you can select the type of contact info you entered
+                ## if any contact info was given, display a dropdown where you can select the type of contact info you entered
                 if (br_main.contactInfo):
                     
                     null width 20
@@ -100,7 +100,7 @@ screen br_usc_main_content():
                     
                     fixed:
                         xysize (200, 40)
-                        use br_usc_dropdown("contact_info_type_dropdown", br_main.CONTACT_INFO_TYPES, "br_main.contactInfoTypeIndex", pixelHeight=CONTACT_INFO_DD_SIZE[1])
+                        use br_usc_dropdown("contact_info_type_dropdown", br_main.CONTACT_INFO_TYPES, "br_main.contactInfoTypeIndex", pixelHeight=40)
 
             null height 40
 
@@ -113,7 +113,7 @@ screen br_usc_main_content():
                 
                 fixed:
                     xysize (400, 40)
-                    use br_usc_dropdown("category_dropdown", br_main.CATEGORIES, "br_main.categoryIndex", pixelHeight=CATEGORY_DD_SIZE[1])
+                    use br_usc_dropdown("category_dropdown", br_main.CATEGORIES, "br_main.categoryIndex", pixelHeight=40)
 
             null height 40
 
@@ -127,7 +127,7 @@ screen br_usc_main_content():
                 xysize (1.0, 0.6)
 
                 if (hoveringTextArea == 2 or selectedTextArea == 2):
-                    background br_t_frame(br_SECONDAY_PANEL_COLOR)
+                    background br_t_frame(br_SECONDARY_PANEL_COLOR)
                 else:
                     background br_t_frame(br_PRIMARY_PANEL_COLOR)
 
@@ -179,7 +179,7 @@ screen br_usc_main_content():
             
             null height 40
 
-            ## disclamer at the buttom
+            ## disclaimer at the bottom
             text "A bug report contains a screenshot, some system information and whatever you enter on this page.":
                 xalign 0.5
     

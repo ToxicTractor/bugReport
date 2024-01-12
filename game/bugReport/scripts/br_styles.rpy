@@ -10,7 +10,7 @@ style br_st_tooltip_text:
     color br_PRIMARY_TEXT_COLOR
 
 style br_st_tooltip_frame:
-    background br_t_frame(br_SECONDAY_PANEL_COLOR)
+    background br_t_frame(br_SECONDARY_PANEL_COLOR)
 
 
 ##---------------------------------------------------------------------

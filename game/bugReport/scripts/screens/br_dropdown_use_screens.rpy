@@ -32,7 +32,7 @@ screen br_usc_dropdown(id, values, outputVariable, arrowSize=24, pixelHeight=40)
                     yalign 0.5
             ## the output variable had no '.' so we treat it as a global variable
             else:
-                text values[globas()[outputVariable]]:
+                text values[globals()[outputVariable]]:
                     yalign 0.5
 
             ## draw the arrow at the right side of the dropdown menu

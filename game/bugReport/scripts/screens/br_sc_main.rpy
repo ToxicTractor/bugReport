@@ -27,13 +27,13 @@ screen br_sc_main():
             side "c r":
                 area(0, 0, config.screen_width, int(config.screen_height / 2))
 
-                viewport id "andorid_view":
+                viewport id "android_view":
                     child_size(config.screen_width - 150, config.screen_height)
                     draggable True
 
                     use br_usc_main_content
 
-                vbar value YScrollValue("andorid_view") style "br_st_vbar"
+                vbar value YScrollValue("android_view") style "br_st_vbar"
 
         else:
             

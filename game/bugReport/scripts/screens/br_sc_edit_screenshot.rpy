@@ -27,7 +27,7 @@ screen br_sc_edit_screenshot:
         ## adds the screenshot painter to the frame
         add painter
 
-    ## hbox for the buttons at the buttom of the screen
+    ## hbox for the buttons at the bottom of the screen
     hbox:
         ysize 50
         xalign 0.5
@@ -52,7 +52,7 @@ screen br_sc_edit_screenshot:
         ## adds some whitespace
         null width 100
         
-        ## hbox for tools, currently we only have clear so hbox is not strictly nessesary
+        ## hbox for tools, currently we only have clear so hbox is not strictly necessary
         hbox:
             spacing 20
             

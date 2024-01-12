@@ -60,7 +60,7 @@ init python:
                 zoomFactorY = height / imageSize[1]
 
                 ## zoom the background to the correct size
-                ## we only want to do this once, otherwise the background will grow or shring every render
+                ## we only want to do this once, otherwise the background will grow or shrink every render
                 bg.zoom(zoomFactorX, zoomFactorY)
 
                 if (br_ScreenshotPainter.DEBUG):
