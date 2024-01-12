@@ -174,7 +174,7 @@ init python:
             category = br_BugReport.CATEGORIES[self.categoryIndex]
             gameName = config.name
             gameVersion = config.version
-            platformName = platform.platform()
+            platformName = platform.platform() if not renpy.android else "Android" ## platform.platform() throws an exception on android so we have to check another way
             fileName, line = renpy.get_filename_line()
             description = self.description if bool(self.description) else "NO DESCRIPTION"
             contactInfoType = br_BugReport.CONTACT_INFO_TYPES[self.contactInfoTypeIndex]
