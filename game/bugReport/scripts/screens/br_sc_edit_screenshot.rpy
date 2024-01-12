@@ -65,7 +65,7 @@ screen br_sc_edit_screenshot:
                     )
         
         ## adds some whitespace
-        null width 200
+        null width 100
 
         ## hbox for the cancel and confirm buttons
         hbox:
@@ -90,6 +90,12 @@ screen br_sc_edit_screenshot:
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
     use br_usc_button_exit(cancelActions, (0.99, 0.01 * scaleFactor))
+
+    text "DISCLAIMER: Excessive use of the screenshot painter will cause Ren'Py to leak memory. Restarting the game should free up the memory again.":
+        color "#f00"
+        size 18
+        xalign 0.5
+        ypos 50
 
     ## get the current tooltip
     $ tooltip = GetTooltip()

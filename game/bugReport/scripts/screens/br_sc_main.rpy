@@ -22,34 +22,32 @@ screen br_sc_main():
         ## set the background of the box to the modal overlay
         background "br_i_modalOverlay"
 
-        ## display a mobile friendly version of the screen if we are on android or ios
-        if renpy.android or renpy.ios:
-            side "c r":
-                area(0, 0, config.screen_width, int(config.screen_height / 2))
-
-                viewport id "android_view":
-                    child_size(config.screen_width - 150, config.screen_height)
-                    draggable True
-
-                    use br_usc_main_content
-
-                vbar value YScrollValue("android_view") style "br_st_vbar"
-
-        else:
-            
-            use br_usc_main_content
+        use br_usc_main_content
     
-    ## edit screenshot button at the top right
-    fixed:
-        xysize(100, 100)
-        yalign 0.2
-        xanchor 1.0
-        xpos config.screen_width - 50
-        use br_usc_button(buttonIcon="bugReport/images/edit_screenshot.webp", actions=Show("br_sc_edit_screenshot"), baseTooltip="Edit the screenshot of the report.")
+    ## edit screenshot button at the top right, (not available on ios and android)
+    if (not renpy.android and not renpy.ios):
+        fixed:
+            xysize(100, 100)
+            yalign 0.2
+            xanchor 1.0
+            xpos config.screen_width - 50
+            use br_usc_button(buttonIcon="bugReport/images/edit_screenshot.webp", actions=Show("br_sc_edit_screenshot"), baseTooltip="Edit the screenshot of the report.")
 
     ## exit button in the top right corner
     $ scaleFactor = config.screen_width / config.screen_height
     use br_usc_button_exit(closeActions, (0.99, 0.01 * scaleFactor))
+
+    hbox:
+        align(0.5, 1.0)
+        
+        text "'bugReport' on GitHub -":
+            yalign 0.5
+            size 16
+
+        textbutton "https://github.com/ToxicTractor/bugReport":
+            
+            text_size 16
+            action OpenURL("https://github.com/ToxicTractor/bugReport")
 
     ## get the current tooltip
     $ tooltip = GetTooltip()

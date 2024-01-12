@@ -11,6 +11,10 @@ screen br_usc_main_content():
     ## close actions
     $ closeActions = Function(br_main.Close) if not br_main.description else Show("br_sc_confirmation_modal", None, "Are you sure you want to close the window. Your description will be lost!", Function(br_main.Close))
     
+    ## define actions for what happens when the player presses one of the text fields
+    $ contactInfoActions = [Show("br_sc_text_popup", None, br_main.contactInfo, br_main.OnContactInfoChanged), SetLocalVariable("hoveringTextArea", 0)] if renpy.android or renpy.ios else [SetLocalVariable("selectedTextArea", 1), SetLocalVariable("hoveringTextArea", 0)]
+    $ descriptionActions = [Show("br_sc_text_popup", None, br_main.description, br_main.OnDescriptionChanged, True), SetLocalVariable("hoveringTextArea", 0)] if renpy.android or renpy.ios else [SetLocalVariable("selectedTextArea", 2), SetLocalVariable("hoveringTextArea", 0)]
+
     ## fixed area that fills the available space
     fixed:
         xysize(1.0, 1.0)
@@ -69,9 +73,9 @@ screen br_usc_main_content():
                         hovered SetLocalVariable("hoveringTextArea", 1)
                         unhovered SetLocalVariable("hoveringTextArea", 0)
 
-                        action [SetLocalVariable("selectedTextArea", 1), SetLocalVariable("hoveringTextArea", 0)]
+                        action contactInfoActions
 
-                    ## if the selected text field is this, show the input field
+                    ## if the selected text field is this, show the input field (note that this will never happen on ios or android, instead a popup is shown)
                     if (selectedTextArea == 1):
 
                         input:
@@ -137,7 +141,7 @@ screen br_usc_main_content():
                     hovered SetLocalVariable("hoveringTextArea", 2)
                     unhovered SetLocalVariable("hoveringTextArea", 0)
 
-                    action [SetLocalVariable("selectedTextArea", 2), SetLocalVariable("hoveringTextArea", 0)]
+                    action descriptionActions
 
                 side "c r":
 
