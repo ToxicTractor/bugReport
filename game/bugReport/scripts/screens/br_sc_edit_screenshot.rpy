@@ -2,7 +2,7 @@
 ## the project can be found here on GitHub:
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
-screen br_sc_edit_screenshot:
+screen br_sc_edit_screenshot():
     modal True
     zorder 200
     
