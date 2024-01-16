@@ -86,6 +86,8 @@ init python:
 
         ## closes the main and modal screen and resets variables
         def Close(self):
+            global quick_menu
+
             ## start by closing the sending modal in case it is open
             self.CloseSendingModal()
 
