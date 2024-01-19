@@ -3,13 +3,18 @@
 ## https://github.com/ToxicTractor/bugReport/tree/main
 
 ## text popup screen used for the text fields on mobile devices
-screen br_sc_text_popup(variable, onChanged, multiline=False):
+screen br_sc_text_popup(variable, onChanged, focus, multiline=False):
     zorder 200
     modal True
+
+    key "game_menu" action NullAction()
+
+    $ rect = GetFocusRect(focus)
 
     ## frame that fills the screen
     frame:
         xysize(1.0, 1.0)
+        padding(0, 0)
 
         ## adds the modal background to the frame
         background "br_i_modalOverlay"
@@ -17,21 +22,26 @@ screen br_sc_text_popup(variable, onChanged, multiline=False):
         ## add our custom dismiss button and makes it hide the screen
         use br_usc_dismiss_button(Hide(CurrentScreenName()))
 
-        ## make the top half of the screen available, this is to make room for the on screen keyboard on mobile devices
+        ## use the whole screen if not on android or ios otherwise make the top half of the screen available
+        ## this is to make room for the on screen keyboard on mobile devices
         fixed:
-            xysize(1.0, 0.5)
+            if (not renpy.android and not renpy.ios):
+                xysize(1.0, 1.0)
+            else:
+                xysize(1.0, 0.5)
 
             ## the visual frame of the textbox
             frame:
                 style_prefix "br_st"
                 background br_t_frame(br_PRIMARY_PANEL_COLOR)
-                align(0.5, 0.5)
-
-                ## change the size of the textbox base on the multiline setting
-                if (multiline):
-                    xysize (0.8, 0.5)
+                
+                if (not renpy.android and not renpy.ios):
+                    pos(int(rect[0]), int(rect[1]))
                 else:
-                    xysize (500, 40)
+                    align(0.5, 0.5)
+                
+                ## the size of the text box is defined by the dimensions of the rect
+                xysize (int(rect[2]), int(rect[3]))
 
                 ## an empty button to capture clicks on the text boxes
                 button:
